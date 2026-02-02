@@ -3,229 +3,407 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MERCADO-WEB</title>
+<title>mercado-web | Plataforma Financiera Profesional</title>
+
+<script src="https://s3.tradingview.com/tv.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
 <style>
-*{box-sizing:border-box;font-family:Segoe UI,Arial,sans-serif}
+*{box-sizing:border-box;font-family:'Segoe UI',sans-serif}
+body{margin:0;background:#05070c;color:white;overflow-x:hidden}
 
-body{
-  margin:0;
-  background:#05070c;
-  color:white;
-  min-height:100vh;
-}
-
-/* BOTONES SUPERIORES */
-.top-bar{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:55px;
-  background:#05070c;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 10px;
-  z-index:99999;
-  border-bottom:1px solid #00ffd5;
-}
-
-.top-bar button{
-  border:none;
-  padding:8px 14px;
-  border-radius:6px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.terms-btn{background:#00ff9d}
-.ingresar-btn{background:#00ffd5}
-.menu-btn{background:#00ff9d}
+/* FONDO */
+.money-bg{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.money-bg span{position:absolute;font-size:20px;color:rgba(0,255,180,.15);animation:float 16s linear infinite}
+@keyframes float{0%{transform:translateY(100vh)}100%{transform:translateY(-120vh)}}
 
 /* LOGIN */
-#login{
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
+#login{position:fixed;inset:0;display:flex;justify-content:center;align-items:center;background:#05070c;z-index:10}
+.login-box{background:#0a0f1a;padding:35px;border-radius:12px;width:320px;text-align:center;box-shadow:0 0 35px rgba(0,255,200,.4)}
+.login-box h2{color:#00ffd5}
+.login-box input{width:100%;padding:12px;margin:6px 0;border:none;border-radius:6px;outline:none}
+.login-box button{width:100%;padding:12px;margin-top:10px;border-radius:6px;border:none;cursor:pointer;background:#00ffd5;font-weight:bold}
 
-.login-box{
-  background:#0a0f1a;
-  padding:30px;
-  border-radius:12px;
-  width:320px;
-  text-align:center;
-  box-shadow:0 0 25px rgba(0,255,200,.4);
+/* BOTONES */
+.menu-btn,.ingresar-btn,.terms-btn{
+position:fixed;top:15px;z-index:20;border:none;padding:10px 15px;
+border-radius:6px;cursor:pointer;font-weight:bold;color:#000
 }
+.menu-btn{right:15px;background:#00ffd5}
+.ingresar-btn{right:110px;background:#00ff9d}
+.terms-btn{left:15px;background:#00ff9d}
 
-.login-box input{
-  width:100%;
-  padding:10px;
-  margin:6px 0;
-  border:none;
-  border-radius:6px;
-}
-
-.login-box button{
-  width:100%;
-  padding:12px;
-  margin-top:10px;
-  border:none;
-  border-radius:6px;
-  background:#00ffd5;
-  font-weight:bold;
-  cursor:pointer;
-}
+/* MENU */
+#menu{position:fixed;inset:0;background:#05070c;display:none;flex-direction:column;justify-content:center;align-items:center;z-index:30}
+#menu a{color:#00ffd5;font-size:20px;margin:10px;text-decoration:none;cursor:pointer}
+#menu button{margin-top:20px;padding:10px 20px;background:#ff5555;border:none;border-radius:6px;cursor:pointer}
 
 /* DASHBOARD */
-#dashboard{
-  display:none;
-  padding-top:70px;
-  padding:20px;
+#dashboard{display:none;padding:20px;min-height:100vh;position:relative;z-index:2}
+.header{text-align:center;font-weight:700;font-size:18px;border-bottom:2px solid #00ffd5;padding-bottom:10px;margin-bottom:15px}
+
+.main-grid{
+display:grid;
+grid-template-columns:1fr 320px;
+gap:15px;
 }
 
-.header{
-  text-align:center;
-  font-weight:bold;
-  font-size:18px;
-  border-bottom:2px solid #00ffd5;
-  padding-bottom:10px;
-  margin-bottom:15px;
+/* PANEL LATERAL */
+.side-panel{
+background:#080c15;
+border-radius:12px;
+padding:12px;
+box-shadow:0 0 15px rgba(0,255,200,.2);
 }
 
-/* MODALES */
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.9);
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:999999;
+.market-box{
+background:#0b1220;
+padding:10px;
+border-radius:8px;
+margin-bottom:10px;
 }
 
-.modal-box{
-  background:#0a0f1a;
-  padding:25px;
-  border-radius:12px;
-  width:340px;
-  box-shadow:0 0 25px rgba(0,255,200,.5);
+.market-box h4{
+margin:0 0 6px 0;
+color:#00ffd5;
+font-size:14px;
 }
 
-.modal-box h2{
-  text-align:center;
-  color:#00ffd5;
+.market-box span{
+font-size:13px;
+display:flex;
+justify-content:space-between;
+margin:2px 0;
 }
 
-.modal-box button{
-  width:100%;
-  margin-top:10px;
-  padding:10px;
-  border:none;
-  border-radius:6px;
-  background:#00ffd5;
-  font-weight:bold;
-  cursor:pointer;
+.market-price{color:#00ff9d}
+
+/* NOTICIAS */
+.news-panel{
+background:#0b1220;
+padding:12px;
+border-radius:10px;
+margin-top:12px;
+box-shadow:0 0 15px rgba(0,255,200,.25);
 }
+
+.news-panel h4{
+color:#00ffd5;
+margin:0 0 6px 0;
+}
+
+.news-title{
+font-weight:bold;
+color:#00ff9d;
+margin-bottom:4px;
+}
+
+.news-text{
+font-size:13px;
+line-height:1.4;
+opacity:.9;
+}
+
+/* PLANETA */
+.earth-box{
+background:#0b1220;
+padding:10px;
+border-radius:8px;
+margin-bottom:10px;
+text-align:center;
+}
+#earth3d{
+width:100%;
+height:200px;
+}
+
+/* PANEL FINANCIERO */
+#panelFinanciero{position:fixed;inset:0;background:rgba(0,0,0,.95);display:none;justify-content:center;align-items:center;z-index:50}
+.panel-box{background:#0a0f1a;padding:25px;border-radius:12px;width:360px;box-shadow:0 0 30px rgba(0,255,200,.45)}
+.panel-box h2{text-align:center;color:#00ffd5}
+.panel-box input,.panel-box select{width:100%;padding:10px;margin:6px 0;border:none;border-radius:6px;outline:none}
+.panel-box button{width:100%;padding:12px;margin-top:10px;border:none;border-radius:6px;cursor:pointer;background:#00ffd5;font-weight:bold}
+
+/* PANEL TERMINOS */
+#termsPanel{position:fixed;inset:0;background:rgba(0,0,0,.95);display:none;justify-content:center;align-items:center;z-index:80}
+
+/* TICKER */
+.cfd-ticker{width:100%;overflow:hidden;background:#000;border-top:2px solid cyan;border-bottom:2px solid cyan}
+.ticker-track{display:flex;width:max-content;animation:scroll 30s linear infinite}
+.ticker-track span{margin:0 25px;font-size:16px;font-weight:bold;color:#00ffd5;white-space:nowrap}
+@keyframes scroll{from{transform:translateX(100%)}to{transform:translateX(-100%)}}
 </style>
 </head>
 
 <body>
 
-<!-- BARRA SUPERIOR -->
-<div class="top-bar">
-  <button class="terms-btn" onclick="openTerms()">TÉRMINOS</button>
-  <div>
-    <button class="ingresar-btn" onclick="openPanel()">INGRESAR</button>
-    <button class="menu-btn" onclick="openMenu()">MENÚ</button>
-  </div>
+<div class="money-bg" id="moneyBg"></div>
+
+<button class="terms-btn" onclick="openTerms()">TÉRMINOS</button>
+<button class="ingresar-btn" onclick="openPanel()">INGRESAR</button>
+<button class="menu-btn" onclick="openMenu()">MENÚ</button>
+
+<div id="menu">
+<a onclick="loadSection('home')">Inicio</a>
+<a onclick="loadSection('forex')">Forex</a>
+<a onclick="loadSection('crypto')">Criptomonedas</a>
+<a onclick="loadSection('stocks')">Acciones</a>
+<a onclick="loadSection('indices')">Índices</a>
+<a onclick="loadSection('commodities')">Materias Primas</a>
+<button onclick="closeMenu()">Cerrar</button>
 </div>
 
-<!-- LOGIN -->
 <div id="login">
-  <div class="login-box">
-    <h2>Acceso Seguro</h2>
-    <input id="user" placeholder="Usuario">
-    <input id="pass" type="password" placeholder="Contraseña">
-    <button onclick="loginUser()">Ingresar</button>
-  </div>
+<div class="login-box">
+<h2>Acceso Seguro</h2>
+<input id="user" placeholder="Usuario">
+<input id="pass" type="password" placeholder="Contraseña">
+<button onclick="loginUser()">Ingresar</button>
+</div>
 </div>
 
-<!-- DASHBOARD -->
 <div id="dashboard">
-  <div class="header">PANEL PROFESIONAL MERCADO-WEB</div>
-  <h3>Bienvenido</h3>
-  <p>Plataforma financiera profesional activa.</p>
+<div class="header">BIENVENIDO AL PANEL PROFECIONAL Y EJECUTIVO MERCADO-WEB DONDE TUS RETIROS SON EFECTIVOS,RAPIDOS Y SEGUROS.</div>   
+
+<div class="main-grid">
+<div id="content"></div>
+
+<div class="side-panel">
+
+<div class="market-box">
+<h4>📊 Centro Profesional</h4>
+<span>Operaciones activas <span class="market-price">12</span></span>
+<span>Ganancia diaria <span class="market-price">$247</span></span>
+<span>Efectividad <span class="market-price">79%</span></span>
 </div>
 
-<!-- PANEL FINANCIERO -->
-<div id="panelFinanciero" class="modal">
-  <div class="modal-box">
-    <h2>Panel Bancario</h2>
-    <input id="monto" placeholder="Monto">
-    <button onclick="closePanel()">Cerrar</button>
-  </div>
+<div class="market-box">
+<h4>🧠 Estrategias</h4>
+<span>Scalping</span>
+<span>Day Trading</span>
+<span>Swing Trading</span>
 </div>
 
-<!-- PANEL TERMINOS -->
-<div id="termsPanel" class="modal">
-  <div class="modal-box">
-    <h2>Términos y Condiciones</h2>
-    <p style="font-size:14px;line-height:1.5">
-      Bienvenido a MERCADO-WEB. Sus retiros son seguros, rápidos y efectivos.
-      Los procesos tardan entre 24 y 72 horas hábiles.
-    </p>
-    <label>
-      <input type="checkbox" id="acceptTerms"> Acepto términos
-    </label>
-    <button onclick="acceptTerms()">Confirmar</button>
-    <button onclick="closeTerms()" style="background:#ff5555">Cerrar</button>
-  </div>
+<div class="market-box">
+<h4>📊 Estado del Mercado</h4>
+<span>Volatilidad <span class="market-price">Alta</span></span>
+<span>Sesión <span class="market-price">Americana</span></span>
+<span>Riesgo <span class="market-price">Moderado</span></span>
+</div>
+
+<div class="earth-box">
+<h4>🌍 Mercado Global</h4>
+<div id="earth3d"></div>
+</div>
+
+</div>
+</div>
+</div>
+
+<div id="panelFinanciero">
+<div class="panel-box">
+<h2>Panel Bancario</h2>
+
+<input id="saldo" value="10000" readonly>
+<input id="monto" type="number" placeholder="Monto">
+
+<select id="tipo">
+<option value="deposito">Depositar</option>
+<option value="retiro">Retirar</option>
+</select>
+
+<select>
+<option>Cuenta Corriente</option>
+<option>Nómina</option>
+<option>Ahorros</option>
+</select>
+
+<select id="pais" onchange="cargarBancos()">
+<option>Seleccione país</option>
+<option value="mx">México</option>
+<option value="pe">Perú</option>
+<option value="cl">Chile</option>
+</select>
+
+<select id="banco">
+<option>Seleccione banco</option>
+</select>
+
+<button onclick="procesarOperacion()">Procesar</button>
+<button onclick="closePanel()" style="background:#ff5555">Cerrar</button>
+</div>
+</div>
+
+<div id="termsPanel">
+<div class="panel-box">
+<h2>Términos y Condiciones</h2>
+<p style="font-size:14px;line-height:1.5">
+Bienvenido al sitio mercado-web donde sus retiros son seguros, efectivos y rápidos. Una vez complete el retiro del monto, este ingresará automáticamente en proceso de validación correspondiente a la cuenta vinculada. El proceso puede tardar entre 24 y 72 horas hábiles debido al origen. Recuerde tener su código SWIFT activo para evitar contratiempos.
+</p>
+
+<label style="font-size:12px">
+<input type="checkbox" id="acceptTerms"> Acepto términos y condiciones
+</label>
+
+<button onclick="acceptTerms()">Confirmar</button>
+<button onclick="closeTerms()" style="background:#ff5555">Cerrar</button>
+</div>
+</div>
+
+<div class="cfd-ticker">
+<div class="ticker-track">
+<span>Negocio CFD en Acciones · Forex · Criptomonedas · Índices · Materias Primas</span>
+<span>APPLE · TESLA · AMAZON · META · GOOGLE · BTC · ETH · ORO · PETRÓLEO · EUR/USD · NASDAQ</span>
+</div>
 </div>
 
 <script>
 function loginUser(){
-  const u=document.getElementById("user").value.trim();
-  const p=document.getElementById("pass").value;
+const user=document.getElementById("user");
+const pass=document.getElementById("pass");
 
-  if(u!=="" && p==="12345"){
-    document.getElementById("login").style.display="none";
-    document.getElementById("dashboard").style.display="block";
-  } else {
-    alert("Credenciales incorrectas");
-  }
+if(user.value.trim()!=="" && pass.value==="12345"){
+document.getElementById("login").style.display="none";
+document.getElementById("dashboard").style.display="block";
+loadSection("home");
+}else alert("Credenciales incorrectas");
 }
 
-function openPanel(){
-  document.getElementById("panelFinanciero").style.display="flex";
-}
+function openMenu(){menu.style.display="flex"}
+function closeMenu(){menu.style.display="none"}
 
-function closePanel(){
-  document.getElementById("panelFinanciero").style.display="none";
-}
+function openPanel(){panelFinanciero.style.display="flex"}
+function closePanel(){panelFinanciero.style.display="none"}
 
-function openTerms(){
-  document.getElementById("termsPanel").style.display="flex";
-}
-
-function closeTerms(){
-  document.getElementById("termsPanel").style.display="none";
-}
+function openTerms(){termsPanel.style.display="flex"}
+function closeTerms(){termsPanel.style.display="none"}
 
 function acceptTerms(){
-  if(!document.getElementById("acceptTerms").checked){
-    alert("Debe aceptar los términos");
-    return;
-  }
-  alert("Términos aceptados correctamente");
-  closeTerms();
+if(!document.getElementById("acceptTerms").checked){
+alert("Debe aceptar los términos y condiciones");
+return;
+}
+alert("🎉 Felicitaciones por su retiro");
+closeTerms();
 }
 
-function openMenu(){
-  alert("Menú activo");
+let saldo=10000;
+
+function procesarOperacion(){
+let monto=parseFloat(document.getElementById("monto").value);
+let tipo=document.getElementById("tipo").value;
+
+if(!monto||monto<=0){alert("Monto inválido");return;}
+
+if(tipo==="deposito") saldo+=monto;
+else{
+if(monto>saldo){alert("Saldo insuficiente");return;}
+saldo-=monto;
 }
+
+document.getElementById("saldo").value=saldo.toFixed(2);
+document.getElementById("monto").value="";
+alert("Operación exitosa");
+}
+
+function cargarBancos(){
+let bancos={
+mx:["BBVA","Banamex","Santander","Banorte"],
+pe:["BCP","Interbank","Scotiabank"],
+cl:["Banco Chile","BCI","Santander"]
+};
+
+let banco=document.getElementById("banco");
+banco.innerHTML="<option>Seleccione banco</option>";
+bancos[pais.value]?.forEach(b=>{
+let o=document.createElement("option");
+o.textContent=b;
+banco.appendChild(o);
+});
+}
+
+const noticias=[
+{t:"Estados Unidos",d:"La FED mantiene tasas mientras analiza inflación."},
+{t:"China",d:"Se anuncian estímulos económicos."},
+{t:"Europa",d:"Posible recorte de tasas del BCE."},
+{t:"Brasil",d:"Fortaleza del real impulsa mercados."},
+{t:"Japón",d:"El yen continúa débil."}
+];
+let ni=0;
+
+function cargarNoticias(){
+return `<div class="news-panel">
+<h4>📰 Noticias Globales</h4>
+<div class="news-title">${noticias[ni].t}</div>
+<div class="news-text">${noticias[ni].d}</div>
+</div>`;
+}
+
+function loadSection(s){
+let c=document.getElementById("content");
+
+if(s==="home"){
+c.innerHTML=`
+<h3>Panel Central Profesional</h3>
+<iframe src="https://s.tradingview.com/widgetembed/?symbol=BINANCE:BTCUSDT&interval=1&theme=dark" style="width:100%;height:420px;border-radius:12px"></iframe>
+<div id="newsArea"></div>
+`;
+document.getElementById("newsArea").innerHTML=cargarNoticias();
+setInterval(()=>{
+ni=(ni+1)%noticias.length;
+document.getElementById("newsArea").innerHTML=cargarNoticias();
+},7000);
+}
+}
+
+for(let i=0;i<80;i++){
+let s=document.createElement("span");
+s.innerText="$";
+s.style.left=Math.random()*100+"%";
+s.style.fontSize=14+Math.random()*30+"px";
+s.style.animationDuration=8+Math.random()*15+"s";
+moneyBg.appendChild(s);
+}
+
+/* PLANETA */
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(45, 260/200, 0.1, 1000);
+camera.position.z = 2.5;
+
+const renderer = new THREE.WebGLRenderer({ alpha:true, antialias:true });
+renderer.setSize(260,200);
+document.getElementById("earth3d").appendChild(renderer.domElement);
+
+const loader = new THREE.TextureLoader();
+const earthTexture = loader.load("https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg");
+const bumpTexture  = loader.load("https://threejs.org/examples/textures/planets/earth_bump_2048.jpg");
+const specTexture  = loader.load("https://threejs.org/examples/textures/planets/earth_specular_2048.jpg");
+
+const geometry = new THREE.SphereGeometry(1, 64, 64);
+const material = new THREE.MeshPhongMaterial({
+map: earthTexture,
+bumpMap: bumpTexture,
+bumpScale: 0.04,
+specularMap: specTexture,
+specular: new THREE.Color('grey')
+});
+
+const earth = new THREE.Mesh(geometry, material);
+scene.add(earth);
+
+const ambient = new THREE.AmbientLight(0x222222);
+scene.add(ambient);
+
+const sunlight = new THREE.DirectionalLight(0xffffff, 1.2);
+sunlight.position.set(5,3,5);
+scene.add(sunlight);
+
+function animate(){
+requestAnimationFrame(animate);
+earth.rotation.y += 0.002;
+renderer.render(scene, camera);
+}
+animate();
 </script>
 
 </body>
