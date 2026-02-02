@@ -132,6 +132,18 @@ height:200px;
 .ticker-track{display:flex;width:max-content;animation:scroll 30s linear infinite}
 .ticker-track span{margin:0 25px;font-size:16px;font-weight:bold;color:#00ffd5;white-space:nowrap}
 @keyframes scroll{from{transform:translateX(100%)}to{transform:translateX(-100%)}}
+
+/* FIX BOTÓN TÉRMINOS - VISIBILIDAD FORZADA */
+.terms-btn{
+  position:fixed !important;
+  top:15px !important;
+  left:15px !important;
+  z-index:999999 !important;
+  display:flex !important;
+  opacity:1 !important;
+  visibility:visible !important;
+  pointer-events:auto !important;
+}
 </style>
 </head>
 
