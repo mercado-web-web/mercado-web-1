@@ -463,5 +463,29 @@ window.addEventListener("load", () => {
     alert("Aquí van tus términos y condiciones");
   };
 });
+!-- BOTÓN FLOTANTE TÉRMINOS -->
+<button id="termsBtnForce" style="
+position: fixed;
+bottom: 20px;
+right: 20px;
+z-index: 2147483647;
+background: linear-gradient(135deg,#00ffcc,#00cc99);
+color: #000;
+border: none;
+padding: 14px 22px;
+font-size: 15px;
+font-weight: bold;
+border-radius: 12px;
+cursor: pointer;
+box-shadow: 0 0 15px rgba(0,255,200,.8);
+">
+📜 Términos y Condiciones
+</button>
+
+<script>
+document.getElementById("termsBtnForce").onclick = () => {
+  alert("Aquí irán los Términos y Condiciones");
+};
+</script>
 </body>
 </html>
