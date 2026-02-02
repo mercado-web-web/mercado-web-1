@@ -416,6 +416,19 @@ earth.rotation.y += 0.002;
 renderer.render(scene, camera);
 }
 animate();
+
+/* FIX DEFINITIVO BOTÓN TÉRMINOS EN GITHUB */
+window.addEventListener("load", () => {
+  const termsBtn = document.querySelector(".terms-btn");
+  if (termsBtn) {
+    termsBtn.style.display = "flex";
+    termsBtn.style.opacity = "1";
+    termsBtn.style.visibility = "visible";
+    termsBtn.style.pointerEvents = "auto";
+    termsBtn.style.zIndex = "999999";
+  }
+});
+
 </script>
 
 </body>
