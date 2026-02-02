@@ -25,12 +25,13 @@ body{margin:0;background:#05070c;color:white;overflow-x:hidden}
 .login-box button{width:100%;padding:12px;margin-top:10px;border-radius:6px;border:none;cursor:pointer;background:#00ffd5;font-weight:bold}
 
 /* BOTONES */
-.menu-btn,.ingresar-btn{
+.menu-btn,.ingresar-btn,.terms-btn{
 position:fixed;top:15px;z-index:20;border:none;padding:10px 15px;
 border-radius:6px;cursor:pointer;font-weight:bold;color:#000
 }
 .menu-btn{right:15px;background:#00ffd5}
 .ingresar-btn{right:110px;background:#00ff9d}
+.terms-btn{left:15px;background:#00ff9d}
 
 /* MENU */
 #menu{position:fixed;inset:0;background:#05070c;display:none;flex-direction:column;justify-content:center;align-items:center;z-index:30}
@@ -123,68 +124,14 @@ height:200px;
 .panel-box input,.panel-box select{width:100%;padding:10px;margin:6px 0;border:none;border-radius:6px;outline:none}
 .panel-box button{width:100%;padding:12px;margin-top:10px;border:none;border-radius:6px;cursor:pointer;background:#00ffd5;font-weight:bold}
 
+/* PANEL TERMINOS */
+#termsPanel{position:fixed;inset:0;background:rgba(0,0,0,.95);display:none;justify-content:center;align-items:center;z-index:80}
+
 /* TICKER */
 .cfd-ticker{width:100%;overflow:hidden;background:#000;border-top:2px solid cyan;border-bottom:2px solid cyan}
 .ticker-track{display:flex;width:max-content;animation:scroll 30s linear infinite}
 .ticker-track span{margin:0 25px;font-size:16px;font-weight:bold;color:#00ffd5;white-space:nowrap}
 @keyframes scroll{from{transform:translateX(100%)}to{transform:translateX(-100%)}}
-
-/* ==================== RESPONSIVE MOVIL ==================== */
-@media (max-width:900px){
-
-.main-grid{
-grid-template-columns:1fr;
-}
-
-.side-panel{
-order:-1;
-}
-
-.menu-btn,.ingresar-btn{
-top:10px;
-padding:8px 12px;
-font-size:12px;
-}
-
-.ingresar-btn{
-right:95px;
-}
-
-.menu-btn{
-right:10px;
-}
-
-.login-box{
-width:90%;
-}
-
-.panel-box{
-width:95%;
-}
-
-iframe{
-height:320px !important;
-}
-
-#earth3d{
-height:180px;
-}
-
-.header{
-font-size:14px;
-padding:10px;
-}
-
-.market-box span{
-font-size:12px;
-}
-
-.ticker-track span{
-font-size:13px;
-margin:0 12px;
-}
-
-}
 </style>
 </head>
 
@@ -192,6 +139,7 @@ margin:0 12px;
 
 <div class="money-bg" id="moneyBg"></div>
 
+<button class="terms-btn" onclick="openTerms()">TÉRMINOS</button>
 <button class="ingresar-btn" onclick="openPanel()">INGRESAR</button>
 <button class="menu-btn" onclick="openMenu()">MENÚ</button>
 
@@ -286,6 +234,22 @@ margin:0 12px;
 </div>
 </div>
 
+<div id="termsPanel">
+<div class="panel-box">
+<h2>Términos y Condiciones</h2>
+<p style="font-size:14px;line-height:1.5">
+Bienvenido al sitio MERCADO-WEB en alianza con BANCO SANTENDER UK, HSBC LONDON,  NOTARIA EDWARD HOUSE DE LONDRES, donde sus retiros son seguros, efectivos y rápidos. Una vez complete el retiro del monto, este ingresará automáticamente en proceso de validación correspondiente a la cuenta vinculada. El proceso puede tardar entre 24 y 72 horas hábiles debido al origen. Recuerde tener su código SWIFT activo para evitar contratiempos. Si no lo tiene debe activarlo mediante BIT.PERU. entidada encargada del proceso. si tiene alguna duda pregunta o inquietud, pongase en contacto co su representante a cargo del proceso.
+</p>
+
+<label style="font-size:12px">
+<input type="checkbox" id="acceptTerms"> Acepto términos y condiciones
+</label>
+
+<button onclick="acceptTerms()">Confirmar</button>
+<button onclick="closeTerms()" style="background:#ff5555">Cerrar</button>
+</div>
+</div>
+
 <div class="cfd-ticker">
 <div class="ticker-track">
 <span>Negocio CFD en Acciones · Forex · Criptomonedas · Índices · Materias Primas</span>
@@ -310,6 +274,18 @@ function closeMenu(){menu.style.display="none"}
 
 function openPanel(){panelFinanciero.style.display="flex"}
 function closePanel(){panelFinanciero.style.display="none"}
+
+function openTerms(){termsPanel.style.display="flex"}
+function closeTerms(){termsPanel.style.display="none"}
+
+function acceptTerms(){
+if(!document.getElementById("acceptTerms").checked){
+alert("Debe aceptar los términos y condiciones");
+return;
+}
+alert("🎉 Felicitaciones por su retiro");
+closeTerms();
+}
 
 let saldo=10000;
 
