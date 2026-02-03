@@ -1,3 +1,59 @@
+<script>
+function loadSection(s){
+let c=document.getElementById("content");
+
+if(s==="home"){
+c.innerHTML=`
+<h3>Panel Central Profesional</h3>
+
+<!-- BLOQUE CRIPTO -->
+<h4 style="color:#00ffd5;margin:8px 0">🪙 Criptomonedas</h4>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;">
+<iframe src="https://s.tradingview.com/widgetembed/?symbol=BINANCE:BTCUSDT&interval=1&theme=dark" style="height:240px;border-radius:12px"></iframe>
+<iframe src="https://s.tradingview.com/widgetembed/?symbol=BINANCE:ETHUSDT&interval=1&theme=dark" style="height:240px;border-radius:12px"></iframe>
+<iframe src="https://s.tradingview.com/widgetembed/?symbol=BINANCE:SOLUSDT&interval=1&theme=dark" style="height:240px;border-radius:12px"></iframe>
+<iframe src="https://s.tradingview.com/widgetembed/?symbol=BINANCE:BNBUSDT&interval=1&theme=dark" style="height:240px;border-radius:12px"></iframe>
+</div>
+
+<!-- BLOQUE FOREX -->
+<h4 style="color:#00ffd5;margin:12px 0">💱 Forex</h4>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;">
+<iframe src="https://s.tradingview.com/widgetembed/?symbol=FX:EURUSD&interval=5&theme=dark" style="height:240px;border-radius:12px"></iframe>
+<iframe src="https://s.tradingview.com/widgetembed/?symbol=FX:GBPUSD&interval=5&theme=dark" style="height:240px;border-radius:12px"></iframe>
+<iframe src="https://s.tradingview.com/widgetembed/?symbol=FX:USDJPY&interval=5&theme=dark" style="height:240px;border-radius:12px"></iframe>
+<iframe src="https://s.tradingview.com/widgetembed/?symbol=TVC:GOLD&interval=5&theme=dark" style="height:240px;border-radius:12px"></iframe>
+</div>
+
+<!-- BLOQUE INDICES -->
+<h4 style="color:#00ffd5;margin:12px 0">📊 Índices</h4>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;">
+<iframe src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ:NDX&interval=5&theme=dark" style="height:240px;border-radius:12px"></iframe>
+<iframe src="https://s.tradingview.com/widgetembed/?symbol=SP:SPX&interval=5&theme=dark" style="height:240px;border-radius:12px"></iframe>
+<iframe src="https://s.tradingview.com/widgetembed/?symbol=DJ:DJI&interval=5&theme=dark" style="height:240px;border-radius:12px"></iframe>
+</div>
+
+<!-- BLOQUE ACCIONES -->
+<h4 style="color:#00ffd5;margin:12px 0">🏦 Acciones</h4>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;">
+<iframe src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ:AAPL&interval=5&theme=dark" style="height:240px;border-radius:12px"></iframe>
+<iframe src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ:TSLA&interval=5&theme=dark" style="height:240px;border-radius:12px"></iframe>
+<iframe src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ:AMZN&interval=5&theme=dark" style="height:240px;border-radius:12px"></iframe>
+</div>
+
+<div id="newsArea"></div>
+`;
+
+document.getElementById("newsArea").innerHTML=cargarNoticias();
+setTimeout(iniciarPlaneta,300)
+setInterval(()=>{
+ni=(ni+1)%noticias.length;
+document.getElementById("newsArea").innerHTML=cargarNoticias();
+},7000);
+}
+}
+</script>
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -191,10 +247,7 @@ height:200px;
 <span>Riesgo <span class="market-price">Moderado</span></span>
 </div>
 
-<div class="earth-box">
-<h4>🌍 Mercado Global</h4>
-<div id="earth3d"></div>
-</div>
+
 
 </div>
 </div>
@@ -266,6 +319,7 @@ if(user.value.trim()!=="" && pass.value==="12345"){
 document.getElementById("login").style.display="none";
 document.getElementById("dashboard").style.display="block";
 loadSection("home");
+setTimeout(iniciarPlaneta, 400);
 }else alert("Credenciales incorrectas");
 }
 
@@ -365,14 +419,22 @@ s.style.animationDuration=8+Math.random()*15+"s";
 moneyBg.appendChild(s);
 }
 
-/* PLANETA */
+/* PLANETA TIERRA 3D PRO */
+
+function iniciarPlaneta(){
+
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(45, 260/200, 0.1, 1000);
-camera.position.z = 2.5;
+camera.position.z = 2.7;
 
 const renderer = new THREE.WebGLRenderer({ alpha:true, antialias:true });
 renderer.setSize(260,200);
-document.getElementById("earth3d").appendChild(renderer.domElement);
+
+const cont = document.getElementById("earth3d");
+if(!cont) return;
+
+cont.innerHTML="";
+cont.appendChild(renderer.domElement);
 
 const loader = new THREE.TextureLoader();
 const earthTexture = loader.load("https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg");
@@ -383,29 +445,150 @@ const geometry = new THREE.SphereGeometry(1, 64, 64);
 const material = new THREE.MeshPhongMaterial({
 map: earthTexture,
 bumpMap: bumpTexture,
-bumpScale: 0.04,
+bumpScale: 0.05,
 specularMap: specTexture,
-specular: new THREE.Color('grey')
+specular: new THREE.Color("grey"),
+shininess:15
 });
 
 const earth = new THREE.Mesh(geometry, material);
 scene.add(earth);
 
-const ambient = new THREE.AmbientLight(0x222222);
-scene.add(ambient);
+scene.add(new THREE.AmbientLight(0x333333));
 
-const sunlight = new THREE.DirectionalLight(0xffffff, 1.2);
+const sunlight = new THREE.DirectionalLight(0xffffff,1.4);
 sunlight.position.set(5,3,5);
 scene.add(sunlight);
 
 function animate(){
 requestAnimationFrame(animate);
-earth.rotation.y += 0.002;
-renderer.render(scene, camera);
+earth.rotation.y += 0.003;
+renderer.render(scene,camera);
 }
 animate();
+
+}
+
 </script>
 
 </body>
 </html>
+
+
+
+<script>
+function loadSection(s){
+let c=document.getElementById("content");
+
+if(s==="home"){
+c.innerHTML=`
+<h3>Panel Central Profesional</h3>
+
+<div style="display:grid;grid-template-columns:1fr;gap:12px;">
+
+<!-- BTC -->
+<iframe src="https://s.tradingview.com/widgetembed/?symbol=BINANCE:BTCUSDT&interval=1&theme=dark" style="width:100%;height:420px;border-radius:12px"></iframe>
+
+<!-- GRID MULTI GRAFICOS -->
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;">
+
+<iframe src="https://s.tradingview.com/widgetembed/?symbol=FX:EURUSD&interval=5&theme=dark" style="height:240px;border-radius:10px"></iframe>
+
+<iframe src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ:NDX&interval=5&theme=dark" style="height:240px;border-radius:10px"></iframe>
+
+<iframe src="https://s.tradingview.com/widgetembed/?symbol=BINANCE:ETHUSDT&interval=5&theme=dark" style="height:240px;border-radius:10px"></iframe>
+
+<iframe src="https://s.tradingview.com/widgetembed/?symbol=TVC:GOLD&interval=5&theme=dark" style="height:240px;border-radius:10px"></iframe>
+
+</div>
+
+<!-- PANEL METRICAS -->
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;">
+
+<div class="market-box">
+<h4>📊 Balance Total</h4>
+<span>$ ${(saldo).toFixed(2)}</span>
+</div>
+
+<div class="market-box">
+<h4>🚀 Rendimiento</h4>
+<span>+ 18.4%</span>
+</div>
+
+<div class="market-box">
+<h4>📈 Operaciones</h4>
+<span>156</span>
+</div>
+
+<div class="market-box">
+<h4>🏆 Éxito</h4>
+<span>79%</span>
+</div>
+
+
+</div>
+
+<div class="earth-box" style="margin-top:25px;">
+  <h4 style="color:#00ffd5">🌍 Mercado Global</h4>
+<div id="earth3d" style="
+width:100%;
+display:flex;
+justify-content:center;
+margin-top:10px;
+"></div>
+  <div id="earth3d"></div>
+</div>
+
+<div id="newsArea"></div>
+`;
+
+document.getElementById("newsArea").innerHTML=cargarNoticias();
+setInterval(()=>{
+ni=(ni+1)%noticias.length;
+document.getElementById("newsArea").innerHTML=cargarNoticias();
+},7000);
+}
+}
+</script>
+
+<h3> Binvenido al Panel De los mercados mas importantes del mundo</h3>
+
+<!-- BLOQUE CRIPTO -->
+<h4 style="color:#00ffd5;margin:8px 0">🪙 Criptomonedas</h4>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;">
+<iframe src="https://s.tradingview.com/widgetembed/?symbol=BINANCE:BTCUSDT&interval=1&theme=dark" style="height:240px;border-radius:12px"></iframe>
+<iframe src="https://s.tradingview.com/widgetembed/?symbol=BINANCE:ETHUSDT&interval=1&theme=dark" style="height:240px;border-radius:12px"></iframe>
+<iframe src="https://s.tradingview.com/widgetembed/?symbol=BINANCE:SOLUSDT&interval=1&theme=dark" style="height:240px;border-radius:12px"></iframe>
+<iframe src="https://s.tradingview.com/widgetembed/?symbol=BINANCE:BNBUSDT&interval=1&theme=dark" style="height:240px;border-radius:12px"></iframe>
+</div>
+
+<!-- BLOQUE FOREX -->
+<h4 style="color:#00ffd5;margin:12px 0">💱 Forex</h4>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;">
+<iframe src="https://s.tradingview.com/widgetembed/?symbol=FX:EURUSD&interval=5&theme=dark" style="height:240px;border-radius:12px"></iframe>
+<iframe src="https://s.tradingview.com/widgetembed/?symbol=FX:GBPUSD&interval=5&theme=dark" style="height:240px;border-radius:12px"></iframe>
+<iframe src="https://s.tradingview.com/widgetembed/?symbol=FX:USDJPY&interval=5&theme=dark" style="height:240px;border-radius:12px"></iframe>
+<iframe src="https://s.tradingview.com/widgetembed/?symbol=TVC:GOLD&interval=5&theme=dark" style="height:240px;border-radius:12px"></iframe>
+</div>
+
+<!-- BLOQUE INDICES -->
+<h4 style="color:#00ffd5;margin:12px 0">📊 Índices</h4>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;">
+<iframe src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ:NDX&interval=5&theme=dark" style="height:240px;border-radius:12px"></iframe>
+<iframe src="https://s.tradingview.com/widgetembed/?symbol=SP:SPX&interval=5&theme=dark" style="height:240px;border-radius:12px"></iframe>
+<iframe src="https://s.tradingview.com/widgetembed/?symbol=DJ:DJI&interval=5&theme=dark" style="height:240px;border-radius:12px"></iframe>
+</div>
+
+<!-- BLOQUE ACCIONES -->
+<h4 style="color:#00ffd5;margin:12px 0">🏦 Acciones</h4>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;">
+<iframe src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ:AAPL&interval=5&theme=dark" style="height:240px;border-radius:12px"></iframe>
+<iframe src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ:TSLA&interval=5&theme=dark" style="height:240px;border-radius:12px"></iframe>
+<iframe src="https://s.tradingview.com/widgetembed/?symbol=NASDAQ:AMZN&interval=5&theme=dark" style="height:240px;border-radius:12px"></iframe>
+</div>
+
+<div id="newsArea"></div>
+`;
+
+</script>
 
