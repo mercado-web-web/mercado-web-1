@@ -1,3 +1,60 @@
+!-- INTRO VIDEO -->
+<div id="introScreen">
+  <video id="videoIntro" muted playsinline preload="auto">
+    <source src="intro.mp4" type="video/mp4">
+  </video>
+  <button id="soundBtn">🔊 ACTIVAR SONIDO</button>
+</div>
+
+<style>
+#introScreen{
+  position:fixed;
+  inset:0;
+  background:black;
+  z-index:999999;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+#introScreen video{
+  width:100vw;
+  height:100vh;
+  object-fit:contain;
+}
+
+#soundBtn{
+  position:absolute;
+  bottom:30px;
+  padding:12px 25px;
+  font-size:18px;
+  border-radius:10px;
+  border:none;
+  background:#00ffcc;
+  font-weight:bold;
+  cursor:pointer;
+}
+</style>
+
+<script>
+const video = document.getElementById("videoIntro");
+const btn = document.getElementById("soundBtn");
+const intro = document.getElementById("introScreen");
+
+btn.onclick = () => {
+  video.muted = false;
+  video.volume = 1;
+  video.currentTime = 0;
+  video.play();
+  btn.style.display="none";
+};
+
+video.onended = () => {
+  intro.style.display="none";
+};
+</script>
+
+
 <script>
 function loadSection(s){
 let c=document.getElementById("content");
@@ -591,4 +648,12 @@ document.getElementById("newsArea").innerHTML=cargarNoticias();
 `;
 
 </script>
+
+
+
+
+
+
+
+
 
