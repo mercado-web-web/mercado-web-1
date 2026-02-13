@@ -1,9 +1,8 @@
-!-- INTRO VIDEO -->
 <div id="introScreen">
   <video id="videoIntro" muted playsinline preload="auto">
     <source src="intro.mp4" type="video/mp4">
   </video>
-  <button id="soundBtn">🔊 ACTIVAR SONIDO</button>
+  <button id="soundBtn">🔊 ACTIVAR SONIDO PARA INGRESAR</button>
 </div>
 
 <style>
@@ -137,11 +136,8 @@ body{margin:0;background:#05070c;color:white;overflow-x:hidden}
 .login-box input{width:100%;padding:12px;margin:6px 0;border:none;border-radius:6px;outline:none}
 .login-box button{width:100%;padding:12px;margin-top:10px;border-radius:6px;border:none;cursor:pointer;background:#00ffd5;font-weight:bold}
 
-/* BOTONES */
-.menu-btn,.ingresar-btn,.terms-btn{
-position:fixed;top:15px;z-index:20;border:none;padding:10px 15px;
-border-radius:6px;cursor:pointer;font-weight:bold;color:#000
-}
+
+
 .menu-btn{right:15px;background:#00ffd5}
 .ingresar-btn{right:110px;background:#00ff9d}
 .terms-btn{left:15px;background:#00ff9d}
@@ -253,7 +249,6 @@ height:200px;
 <div class="money-bg" id="moneyBg"></div>
 
 <button class="terms-btn" onclick="openTerms()">TÉRMINOS</button>
-<button class="ingresar-btn" onclick="openPanel()">INGRESAR</button>
 <button class="menu-btn" onclick="openMenu()">MENÚ</button>
 
 <div id="menu">
@@ -648,3 +643,318 @@ document.getElementById("newsArea").innerHTML=cargarNoticias();
 `;
 
 </script>
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>MERCADO-WEB | Terminal Ejecutiva</title>
+    <style>
+        :root {
+            --dorado: #fcd535;
+            --fondo: #0b0e11;
+            --panel: #1e2329;
+            --verde: #0ecb81;
+            --texto: #eaeaec;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--fondo);
+            color: var(--texto);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* BARRA SUPERIOR */
+        .header-top {
+            background-color: var(--panel);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--dorado);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        .header-top h1 {
+            margin: 0;
+            font-size: 22px;
+            letter-spacing: 2px;
+            color: var(--dorado);
+        }
+
+        /* CONTENEDOR CENTRAL */
+        .main-container {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 30px;
+            padding: 40px;
+            max-width: 1100px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        /* PANEL BANCARIO */
+        .banking-panel {
+            background: var(--panel);
+            border: 1px solid #333;
+            border-radius: 15px;
+            padding: 35px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            position: relative;
+        }
+
+        .banking-panel::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: var(--dorado);
+            border-radius: 15px 15px 0 0;
+        }
+
+        .balance-label {
+            color: #848e9c;
+            font-size: 13px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .balance-amount {
+            background: #000;
+            color: var(--verde);
+            font-size: 45px;
+            font-weight: bold;
+            text-align: center;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border: 1px solid #222;
+        }
+
+        .input-group { margin-bottom: 20px; }
+        .input-group label {
+            display: block;
+            color: #848e9c;
+            font-size: 12px;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            background: #2b3139;
+            border: 1px solid #444;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        input:focus { border-color: var(--dorado); }
+
+        .btn-action {
+            width: 100%;
+            background: var(--dorado);
+            color: black;
+            border: none;
+            padding: 20px;
+            font-weight: bold;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 8px;
+            margin-top: 10px;
+            transition: all 0.2s;
+            text-transform: uppercase;
+        }
+
+        .btn-action:hover {
+            background: #e6b600;
+            transform: translateY(-2px);
+        }
+
+        /* PANEL DE RESUMEN */
+        .summary-panel {
+            background: rgba(30, 35, 41, 0.5);
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 5px solid var(--dorado);
+        }
+
+        .summary-panel h3 {
+            margin-top: 0;
+            color: var(--texto);
+            font-size: 18px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+
+        .info-row {
+            margin-bottom: 18px;
+            font-size: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .status-badge {
+            background: var(--verde);
+            color: black;
+            padding: 3px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* TICKER INFERIOR */
+        .ticker-bar {
+            background: #000;
+            border-top: 1px solid #333;
+            padding: 15px 0;
+            overflow: hidden;
+        }
+
+        .ticker-text {
+            display: inline-block;
+            white-space: nowrap;
+            animation: ticker-move 40s linear infinite;
+            color: var(--dorado);
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        @keyframes ticker-move {
+            from { transform: translateX(100%); }
+            to { transform: translateX(-100%); }
+        }
+
+        @media (max-width: 850px) {
+            .main-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header-top">
+        <h1>MERCADO-WEB | SISTEMA DE GESTIÓN Y RETIRO DE CAPITAL</h1>
+    </header>
+
+    <div class="main-container">
+        
+        <div class="banking-panel">
+            <span class="balance-label">Balance Retirado Total</span>
+            <div class="balance-amount">1,985,325 USD</div>
+
+            <div class="input-group">
+                <label>TIPO DE OPERACIÓN EJECUTIVA</label>
+                <select id="op_tipo">
+                    <option value="retiro">RETIRO DE CAPITAL (SIN LÍMITE)</option>
+                    <option value="credito">SOLICITAR CRÉDITO INMEDIATO</option>
+                    <option value="ajuste">AJUSTE DE CARTERA</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>MONTO A PROCESAR (USDT)</label>
+                <input type="number" id="op_monto" placeholder="0.00">
+            </div>
+
+            <div class="input-group">
+                <label>DETALLES DE DESTINO (CUENTA / IBAN / SWIFT)</label>
+                <input type="text" id="op_cuenta" placeholder="Ingrese número de cuenta receptor">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div class="input-group">
+                    <label>PAÍS</label>
+                    <select>
+                        <option>MÉXICO</option>
+                        <option>PERÚ</option>
+                        <option>CHILE</option>
+                        
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>INSTITUCIÓN</label>
+                    <select>
+                        <option>BBVA SANTANDER</option>
+                        <option>BCP / INTERBANK</option>
+                        <option>BANCO ESTADO</option>
+                        <option>BANCO DE LA NACION</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="btn-action" onclick="validarYProcesar()">Ejecutar Transacción Ahora</button>
+        </div>
+
+        <div class="summary-panel">
+            <h3>DETALLES DE LA TERMINAL</h3>
+            <div class="info-row">
+                <span>Efectividad de Retiro:</span>
+                <span style="color:var(--verde); font-weight:bold;">92% [Nivel Verde]</span>
+            </div>
+            <div class="info-row">
+                <span>Operaciones en Curso:</span>
+                <span>1.898</span>
+            </div>
+            <div class="info-row">
+                <span>Estado de Conexión:</span>
+                <span class="status-badge">ONLINE</span>
+            </div>
+            <div class="info-row">
+                <span>Entidad Validadora:</span>
+                <span style="color:var(--dorado)">MERCADO-WEB</span>
+            </div>
+            
+            <div style="margin-top: 40px; border-top: 1px solid #333; padding-top: 20px; font-size: 13px; color: #848e9c; line-height: 1.6;">
+                <p><strong>Aviso de Seguridad:</strong> Todas las transacciones solicitadas en esta terminal se procesan bajo el protocolo de Santander UK y la supervisión de la Notaría Edward House de Londres.</p>
+                <p>El retiro de capital es ilimitado y se procesa en un máximo de 24 Horas hábiles.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="ticker-bar">
+        <div class="ticker-text">
+            SANTANDER UK OFFICIAL PARTNER ● NOTARIA EDWARD HOUSE LONDON ● SISTEMA SWIFT ACTIVADO ● OPERACIONES SIN LÍMITE DE RETIRO ● PROTOCOLO DE SEGURIDAD SSL 256-BIT ● 
+        </div>
+    </div>
+
+    <script>
+        function validarYProcesar() {
+            const montoVal = document.getElementById('op_monto').value;
+            const cuentaVal = document.getElementById('op_cuenta').value;
+            const tipo = document.getElementById('op_tipo').value;
+
+            // Validación mejorada
+            if (montoVal === "" || montoVal <= 0 || cuentaVal.trim() === "") {
+                alert("⚠ Error de Datos: Por favor ingrese un monto válido y la cuenta de destino.");
+                return;
+            }
+
+            if (tipo === "retiro") {
+                alert("✅ TRANSACCIÓN PROCESADA\n\nSolicitud de retiro por " + montoVal + " USDT enviada con éxito.\n\nDestinatario, cuenta Vinculada: " + cuentaVal + "\nEstado: Notificación de Solicitud de Retiro, Le informamos que su solicitud de retiro de fondos ha sido recibida satisfactoriamente y se encuentra actualmente en proceso de verificación y validación interna, Una vez finalizado el proceso, los fondos serán liberados, Con el fin de garantizar la seguridad, transparencia y cumplimiento de nuestros protocolos operativos, Agradecemos su confianza y comprensión. ");
+            } else if (tipo === "credito") {
+                alert("🏦 SOLICITUD DE CRÉDITO ENVIADA\n\nEl departamento de análisis de Santander UK revisará su historial. Recibirá respuesta a la mas BreVedad posible, recuerde que si en la validacion no tiene su codigo Swift activo sera imposible proceder a su desembolso.");
+            } else {
+                alert("Procesando ajuste de fondos...");
+            }
+        }
+    </script>
+</body>
+</html>
+           
