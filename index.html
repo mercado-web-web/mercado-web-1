@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MERCADO-WEB | Acceso</title>
+    <title>MERCADO-WEB | Plataforma Educativa</title>
     <style>
         :root {
-            --primary: #0a1628;
-            --secondary: #1a2942;
-            --accent: #ff6b35;
-            --safe: #00d9a3;
-            --warning: #ffd700;
+            --primary: #1a1f36;
+            --secondary: #2d3348;
+            --accent: #10b981;
+            --accent-light: #34d399;
+            --warning: #f59e0b;
+            --danger: #ef4444;
             --text: #ffffff;
-            --text-muted: #a0aec0;
+            --text-muted: #94a3b8;
+            --border: rgba(148, 163, 184, 0.1);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
@@ -24,441 +26,536 @@
             line-height: 1.6;
         }
 
-        /* ====== LOGIN ====== */
+        /* LOGIN */
         #loginScreen {
             position: fixed; inset: 0;
-            background: linear-gradient(135deg, #0a1628 0%, #1a2942 50%, #0a1628 100%);
+            background: linear-gradient(135deg, #1a1f36 0%, #2d3348 100%);
             z-index: 999999;
             display: flex; align-items: center; justify-content: center;
-            overflow: hidden;
         }
-        #loginScreen::before {
-            content: ''; position: absolute; width: 200%; height: 200%;
-            background: radial-gradient(circle at 20% 50%, rgba(0,217,163,0.15) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(255,107,53,0.15) 0%, transparent 50%);
-            animation: bgShift 15s ease-in-out infinite;
-        }
-        @keyframes bgShift { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-10%,-10%)} }
-
         .login-box {
-            position: relative; z-index: 1;
-            background: rgba(26,41,66,0.85);
+            background: rgba(45, 51, 72, 0.95);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(0,217,163,0.3);
-            border-radius: 24px; padding: 60px 50px;
-            width: 100%; max-width: 460px;
-            box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 60px rgba(0,217,163,0.1);
-            animation: loginAppear 0.8s ease-out;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 16px; padding: 50px 40px;
+            width: 100%; max-width: 440px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
         }
-        @keyframes loginAppear { from{transform:translateY(40px) scale(0.95);opacity:0} to{transform:translateY(0) scale(1);opacity:1} }
-
         .login-logo { text-align: center; margin-bottom: 10px; }
         .login-logo span {
-            font-size: 36px; font-weight: 800;
-            background: linear-gradient(135deg,#00d9a3,#00f2fe);
+            font-size: 32px; font-weight: 800;
+            background: linear-gradient(135deg, #10b981, #34d399);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 15px rgba(0,217,163,0.5));
         }
-        .login-subtitle { text-align: center; color: var(--text-muted); font-size: 15px; margin-bottom: 40px; }
-        .login-subtitle strong { color: var(--safe); }
-        .login-form { display: flex; flex-direction: column; gap: 20px; }
+        .login-subtitle { text-align: center; color: var(--text-muted); font-size: 14px; margin-bottom: 35px; }
+        .login-subtitle strong { color: var(--accent); }
+        .login-form { display: flex; flex-direction: column; gap: 18px; }
         .input-group { display: flex; flex-direction: column; gap: 8px; }
-        .input-group label { font-size: 14px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+        .input-group label { font-size: 13px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
         .input-wrapper { position: relative; }
-        .input-wrapper span { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); font-size: 18px; }
-        .input-group input, .input-group select {
-            width: 100%; padding: 16px 16px 16px 50px;
-            background: rgba(10,22,40,0.6);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px; color: white; font-size: 16px;
+        .input-wrapper span { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 16px; }
+        .input-group input {
+            width: 100%; padding: 14px 14px 14px 45px;
+            background: rgba(26, 31, 54, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 10px; color: white; font-size: 15px;
             transition: all 0.3s; outline: none;
         }
-        .input-group input:focus, .input-group select:focus {
-            border-color: var(--safe);
-            box-shadow: 0 0 0 3px rgba(0,217,163,0.15);
+        .input-group input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
         }
-        .input-group input::placeholder { color: rgba(160,174,192,0.5); }
         .btn-login {
-            width: 100%; padding: 18px;
-            background: linear-gradient(135deg,var(--safe),#00f2fe);
-            color: var(--primary); border: none; border-radius: 12px;
-            font-size: 18px; font-weight: 800; cursor: pointer;
+            width: 100%; padding: 16px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            color: white; border: none; border-radius: 10px;
+            font-size: 16px; font-weight: 700; cursor: pointer;
             transition: all 0.3s; margin-top: 10px;
         }
-        .btn-login:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(0,217,163,0.4); }
-        .login-error {
-            display: none;
-            background: rgba(255,107,53,0.15);
-            border: 1px solid rgba(255,107,53,0.4);
-            border-radius: 10px; padding: 14px 20px;
-            text-align: center; color: #ff8c61; font-size: 14px; font-weight: 600;
-            animation: shake 0.4s ease;
-        }
-        @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)} }
-        .login-hint { text-align: center; color: rgba(160,174,192,0.5); font-size: 13px; margin-top: 20px; }
-        .login-hint strong { color: rgba(0,217,163,0.6); }
+        .btn-login:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3); }
+        .login-error { display: none; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 8px; padding: 12px; text-align: center; color: #ef4444; font-size: 13px; }
+        .login-hint { text-align: center; color: rgba(148, 163, 184, 0.6); font-size: 12px; margin-top: 20px; }
 
-        /* ====== MAIN PAGE ====== */
+        /* MAIN PAGE */
         #mainPage { display: none; }
-
-        .animated-bg { position: fixed; top:0; left:0; width:100%; height:100%; z-index:0; overflow:hidden; pointer-events:none; }
-        .animated-bg::before {
-            content:''; position:absolute; width:200%; height:200%;
-            background: radial-gradient(circle at 20% 50%,rgba(102,126,234,0.15) 0%,transparent 50%),
-                        radial-gradient(circle at 80% 80%,rgba(255,107,53,0.15) 0%,transparent 50%),
-                        radial-gradient(circle at 40% 20%,rgba(0,217,163,0.1) 0%,transparent 50%);
-            animation: bgShift 20s ease-in-out infinite;
-        }
-        .particle { position:absolute; width:4px; height:4px; background:rgba(255,255,255,0.3); border-radius:50%; animation:float 15s linear infinite; }
-        .particle:nth-child(1){left:10%;animation-delay:0s;animation-duration:12s}
-        .particle:nth-child(2){left:30%;animation-delay:2s;animation-duration:15s}
-        .particle:nth-child(3){left:50%;animation-delay:4s;animation-duration:18s}
-        .particle:nth-child(4){left:70%;animation-delay:6s;animation-duration:14s}
-        .particle:nth-child(5){left:90%;animation-delay:8s;animation-duration:16s}
-        .particle:nth-child(6){left:15%;animation-delay:1s;animation-duration:13s}
-        .particle:nth-child(7){left:85%;animation-delay:3s;animation-duration:17s}
-        .particle:nth-child(8){left:45%;animation-delay:5s;animation-duration:19s}
-        @keyframes float { 0%{transform:translateY(100vh) scale(0);opacity:0} 10%{opacity:1} 90%{opacity:1} 100%{transform:translateY(-100vh) scale(1);opacity:0} }
+        .animated-bg { position: fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none; background: radial-gradient(circle at 20% 50%, rgba(16, 185, 129, 0.03), transparent 50%), radial-gradient(circle at 80% 80%, rgba(52, 211, 153, 0.03), transparent 50%); }
 
         header {
             position:fixed; top:0; width:100%;
-            padding:20px 5%;
-            background:rgba(10,22,40,0.95);
+            padding:16px 5%;
+            background: rgba(26, 31, 54, 0.98);
             backdrop-filter:blur(10px);
-            border-bottom:1px solid rgba(255,255,255,0.1);
+            border-bottom:1px solid var(--border);
             z-index:1000;
         }
         nav { display:flex; justify-content:space-between; align-items:center; max-width:1400px; margin:0 auto; }
         .logo {
-            font-size:28px; font-weight:800;
-            background:linear-gradient(135deg,#00d9a3,#00f2fe);
+            font-size:24px; font-weight: 800;
+            background: linear-gradient(135deg, #10b981, #34d399);
             -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-            animation:glow 3s ease-in-out infinite;
         }
-        @keyframes glow { 0%,100%{filter:brightness(1) drop-shadow(0 0 5px rgba(0,217,163,0.5))} 50%{filter:brightness(1.2) drop-shadow(0 0 20px rgba(0,217,163,0.8))} }
-        .nav-links { display:flex; gap:40px; list-style:none; }
-        .nav-links a { color:var(--text); text-decoration:none; font-weight:600; font-size:15px; transition:all 0.3s; position:relative; }
-        .nav-links a::after { content:''; position:absolute; bottom:-5px; left:0; width:0; height:2px; background:var(--safe); transition:width 0.3s; }
-        .nav-links a:hover { color:var(--safe); }
-        .nav-links a:hover::after { width:100%; }
+        .nav-links { display:flex; gap:35px; list-style:none; }
+        .nav-links a { color:var(--text-muted); text-decoration:none; font-weight:600; font-size:14px; transition:all 0.3s; }
+        .nav-links a:hover { color:var(--accent); }
         .nav-right { display:flex; align-items:center; gap:20px; }
-        .user-badge { display:flex; align-items:center; gap:8px; background:rgba(0,217,163,0.1); border:1px solid rgba(0,217,163,0.3); padding:8px 18px; border-radius:20px; font-size:14px; font-weight:600; color:var(--safe); }
-        .mobile-menu { display:none; flex-direction:column; gap:6px; cursor:pointer; }
-        .mobile-menu span { width:25px; height:3px; background:var(--text); border-radius:3px; }
+        .user-badge { display:flex; align-items:center; gap:8px; background:rgba(16, 185, 129, 0.08); border:1px solid rgba(16, 185, 129, 0.2); padding:6px 16px; border-radius:20px; font-size:13px; font-weight:600; color:var(--accent); }
+        .mobile-menu { display:none; flex-direction:column; gap:5px; cursor:pointer; }
+        .mobile-menu span { width:24px; height:2px; background:var(--text); border-radius:2px; }
 
         /* HERO */
-        .hero { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:120px 5% 80px; position:relative; z-index:1; }
+        .hero { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:100px 5% 60px; position:relative; z-index:1; }
         .hero-content { max-width:1400px; width:100%; display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
-        .hero-text { animation:fadeInLeft 1s ease-out; }
-        @keyframes fadeInLeft { from{transform:translateX(-50px);opacity:0} to{transform:translateX(0);opacity:1} }
-        .hero-text h1 { font-size:64px; font-weight:800; line-height:1.1; margin-bottom:24px; background:linear-gradient(135deg,#fff,var(--safe)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-        .hero-text .highlight { display:block; background:linear-gradient(135deg,var(--accent),#ff8c61); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-        .hero-text p { font-size:20px; color:var(--text-muted); margin-bottom:40px; line-height:1.8; }
-        .cta-buttons { display:flex; gap:20px; flex-wrap:wrap; }
-        .btn { padding:16px 40px; border-radius:12px; font-weight:700; font-size:16px; text-decoration:none; transition:all 0.3s; cursor:pointer; border:none; display:inline-flex; align-items:center; gap:10px; }
-        .btn-primary { background:var(--safe); color:var(--primary); box-shadow:0 10px 30px rgba(0,217,163,0.3); }
-        .btn-primary:hover { transform:translateY(-3px); box-shadow:0 15px 40px rgba(0,217,163,0.5); }
-        .btn-secondary { background:transparent; color:var(--text); border:2px solid rgba(255,255,255,0.2); }
-        .btn-secondary:hover { background:rgba(255,255,255,0.1); border-color:var(--safe); color:var(--safe); }
-        .hero-video { animation:fadeInRight 1s ease-out; }
-        @keyframes fadeInRight { from{transform:translateX(50px);opacity:0} to{transform:translateX(0);opacity:1} }
-        .video-container { position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:20px; box-shadow:0 20px 60px rgba(0,0,0,0.5); border:2px solid rgba(0,217,163,0.3); background:var(--secondary); }
-        .video-container video { position:absolute; top:0; left:0; width:100%; height:100%; border-radius:18px; }
+        .hero-text h1 { font-size:56px; font-weight:800; line-height:1.1; margin-bottom:20px; background:linear-gradient(135deg, #fff, var(--accent-light)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+        .hero-text .highlight { display:block; background:linear-gradient(135deg, var(--accent), var(--accent-light)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+        .hero-text p { font-size:18px; color:var(--text-muted); margin-bottom:35px; line-height:1.7; }
+        .cta-buttons { display:flex; gap:15px; flex-wrap:wrap; }
+        .btn { padding:14px 32px; border-radius:10px; font-weight:700; font-size:15px; text-decoration:none; transition:all 0.3s; cursor:pointer; border:none; display:inline-flex; align-items:center; gap:8px; }
+        .btn-primary { background:var(--accent); color:white; box-shadow:0 4px 14px rgba(16, 185, 129, 0.25); }
+        .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(16, 185, 129, 0.35); }
+        .btn-secondary { background:transparent; color:var(--text); border:2px solid var(--border); }
+        .btn-secondary:hover { background:rgba(255,255,255,0.05); border-color:var(--accent); color:var(--accent); }
+        .video-container { position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:16px; box-shadow:0 20px 60px rgba(0,0,0,0.3); border:1px solid var(--border); background:var(--secondary); }
+        .video-container video { position:absolute; top:0; left:0; width:100%; height:100%; border-radius:15px; }
 
         /* STATS */
-        .stats-bar { background:rgba(26,41,66,0.8); backdrop-filter:blur(10px); padding:40px 5%; border-top:1px solid rgba(255,255,255,0.1); border-bottom:1px solid rgba(255,255,255,0.1); position:relative; z-index:1; }
-        .stats-container { max-width:1400px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:40px; }
+        .stats-bar { background:rgba(45, 51, 72, 0.5); padding:40px 5%; border-top:1px solid var(--border); border-bottom:1px solid var(--border); position:relative; z-index:1; }
+        .stats-container { max-width:1400px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:40px; }
         .stat-item { text-align:center; }
-        .stat-number { font-size:48px; font-weight:800; background:linear-gradient(135deg,var(--accent),var(--warning)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:10px; display:block; }
-        .stat-label { font-size:16px; color:var(--text-muted); font-weight:600; }
+        .stat-number { font-size:42px; font-weight:800; background:linear-gradient(135deg, var(--accent), var(--accent-light)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:8px; display:block; }
+        .stat-label { font-size:15px; color:var(--text-muted); font-weight:600; }
 
         /* SECTIONS */
-        section { padding:100px 5%; position:relative; z-index:1; }
-        .section-header { text-align:center; max-width:800px; margin:0 auto 80px; }
-        .section-tag { display:inline-block; padding:8px 20px; background:rgba(0,217,163,0.1); border:1px solid rgba(0,217,163,0.3); border-radius:20px; color:var(--safe); font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:20px; }
-        .section-title { font-size:48px; font-weight:800; margin-bottom:20px; line-height:1.2; }
-        .section-description { font-size:18px; color:var(--text-muted); line-height:1.8; }
+        section { padding:90px 5%; position:relative; z-index:1; }
+        .section-header { text-align:center; max-width:800px; margin:0 auto 70px; }
+        .section-tag { display:inline-block; padding:6px 18px; background:rgba(16, 185, 129, 0.08); border:1px solid rgba(16, 185, 129, 0.2); border-radius:20px; color:var(--accent); font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:18px; }
+        .section-title { font-size:42px; font-weight:800; margin-bottom:18px; line-height:1.2; }
+        .section-description { font-size:17px; color:var(--text-muted); line-height:1.7; }
 
         /* ABOUT */
-        .about-grid { max-width:1400px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:30px; }
-        .about-card { background:rgba(26,41,66,0.5); padding:40px; border-radius:20px; border:1px solid rgba(255,255,255,0.1); transition:all 0.3s; }
-        .about-card:hover { transform:translateY(-10px); border-color:var(--safe); box-shadow:0 20px 40px rgba(0,217,163,0.2); }
-        .card-icon { width:60px; height:60px; background:linear-gradient(135deg,var(--safe),#00f2fe); border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:24px; font-size:28px; }
-        .card-title { font-size:24px; font-weight:700; margin-bottom:16px; }
-        .card-description { color:var(--text-muted); line-height:1.7; }
+        .about-grid { max-width:1400px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:25px; }
+        .about-card { background:rgba(45, 51, 72, 0.4); padding:35px; border-radius:16px; border:1px solid var(--border); transition:all 0.3s; }
+        .about-card:hover { transform:translateY(-8px); border-color:var(--accent); box-shadow:0 15px 35px rgba(16, 185, 129, 0.1); }
+        .card-icon { width:56px; height:56px; background:linear-gradient(135deg, var(--accent), var(--accent-light)); border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:20px; font-size:26px; }
+        .card-title { font-size:22px; font-weight:700; margin-bottom:14px; }
+        .card-description { color:var(--text-muted); line-height:1.6; font-size:15px; }
 
         /* ALERTS */
         .alerts-container { max-width:1200px; margin:0 auto; }
-        .alert-box { background:rgba(26,41,66,0.5); padding:40px; border-radius:20px; border-left:5px solid var(--accent); margin-bottom:30px; transition:all 0.3s; }
-        .alert-box:hover { transform:translateX(10px); box-shadow:0 10px 30px rgba(255,107,53,0.2); }
-        .alert-header { display:flex; align-items:center; gap:15px; margin-bottom:20px; }
-        .alert-icon { width:50px; height:50px; background:var(--accent); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:24px; flex-shrink:0; }
-        .alert-title { font-size:24px; font-weight:700; }
-        .alert-content { color:var(--text-muted); line-height:1.8; }
-        .alert-content ul { margin-top:15px; padding-left:20px; }
-        .alert-content li { margin-bottom:10px; }
+        .alert-box { background:rgba(45, 51, 72, 0.4); padding:35px; border-radius:16px; border-left:4px solid var(--danger); margin-bottom:25px; transition:all 0.3s; }
+        .alert-box:hover { transform:translateX(8px); box-shadow:0 8px 25px rgba(239, 68, 68, 0.15); }
+        .alert-header { display:flex; align-items:center; gap:14px; margin-bottom:18px; }
+        .alert-icon { width:48px; height:48px; background:var(--danger); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0; }
+        .alert-title { font-size:22px; font-weight:700; }
+        .alert-content { color:var(--text-muted); line-height:1.7; font-size:15px; }
+        .alert-content ul { margin-top:14px; padding-left:20px; }
+        .alert-content li { margin-bottom:8px; }
         .alert-content strong { color:var(--text); }
 
         /* GUIAS */
-        .guias-grid { max-width:1400px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(350px,1fr)); gap:30px; }
-        .guia-card { background:rgba(26,41,66,0.5); padding:40px; border-radius:20px; border:1px solid rgba(255,255,255,0.1); transition:all 0.3s; }
-        .guia-card:hover { transform:translateY(-10px); border-color:var(--safe); box-shadow:0 20px 40px rgba(0,217,163,0.2); }
-        .guia-icon { font-size:48px; margin-bottom:20px; }
-        .guia-title { font-size:24px; font-weight:700; margin-bottom:15px; color:#00d9a3; }
-        .guia-description { color:#a0aec0; margin-bottom:20px; line-height:1.6; }
-        .guia-list { list-style:none; padding:0; margin:20px 0; }
-        .guia-list li { padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.1); color:#a0aec0; }
-        .guia-list li:before { content:"✓ "; color:#00d9a3; font-weight:bold; margin-right:10px; }
+        .guias-grid { max-width:1400px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(350px,1fr)); gap:25px; }
+        .guia-card { background:rgba(45, 51, 72, 0.4); padding:35px; border-radius:16px; border:1px solid var(--border); transition:all 0.3s; }
+        .guia-card:hover { transform:translateY(-8px); border-color:var(--accent); box-shadow:0 15px 35px rgba(16, 185, 129, 0.1); }
+        .guia-icon { font-size:44px; margin-bottom:18px; }
+        .guia-title { font-size:22px; font-weight:700; margin-bottom:14px; color:var(--accent); }
+        .guia-description { color:var(--text-muted); margin-bottom:18px; line-height:1.6; font-size:15px; }
+        .guia-list { list-style:none; padding:0; margin:18px 0; }
+        .guia-list li { padding:8px 0; border-bottom:1px solid var(--border); color:var(--text-muted); font-size:14px; }
+        .guia-list li:before { content:"✓ "; color:var(--accent); font-weight:bold; margin-right:8px; }
 
-        /* ====== CANDLESTICK MARKETS ====== */
-        .markets-section {
-            background: rgba(5, 12, 25, 0.8);
-            padding: 100px 5%;
-            position: relative; z-index: 1;
-            border-top: 1px solid rgba(0,217,163,0.15);
-            border-bottom: 1px solid rgba(0,217,163,0.15);
-        }
-        .markets-grid {
-            max-width: 1400px; margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 30px;
-        }
-        .market-card {
-            background: rgba(15, 25, 45, 0.9);
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.08);
-            overflow: hidden;
-            transition: all 0.3s;
-        }
-        .market-card:hover { border-color: rgba(0,217,163,0.4); box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
-        .market-header {
-            padding: 20px 24px 10px;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .market-name { font-size: 18px; font-weight: 700; }
-        .market-price { font-size: 22px; font-weight: 800; }
-        .market-change {
-            font-size: 14px; font-weight: 700;
-            padding: 4px 10px; border-radius: 8px;
-        }
-        .market-change.up { background: rgba(0,217,163,0.15); color: #00d9a3; }
-        .market-change.down { background: rgba(255,80,80,0.15); color: #ff5050; }
-        .market-subheader {
-            padding: 0 24px 15px;
-            display: flex; gap: 20px;
-        }
-        .market-stat { font-size: 12px; color: var(--text-muted); }
-        .market-stat span { color: var(--text); font-weight: 600; }
-        .market-canvas-wrap { padding: 0 10px 10px; }
-        .market-canvas-wrap canvas { width: 100% !important; border-radius: 10px; }
+        /* MARKETS */
+        .markets-section { background:rgba(26, 31, 54, 0.5); padding:90px 5%; position:relative; z-index:1; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+        .markets-grid { max-width:1400px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(380px,1fr)); gap:25px; }
+        .market-card { background:rgba(45, 51, 72, 0.6); border-radius:16px; border:1px solid var(--border); overflow:hidden; transition:all 0.3s; }
+        .market-card:hover { border-color:var(--accent); box-shadow:0 10px 35px rgba(0,0,0,0.3); }
+        .market-header { padding:18px 22px 10px; display:flex; justify-content:space-between; align-items:center; }
+        .market-name { font-size:17px; font-weight:700; }
+        .market-price { font-size:20px; font-weight:800; }
+        .market-change { font-size:13px; font-weight:700; padding:4px 10px; border-radius:6px; }
+        .market-change.up { background:rgba(16, 185, 129, 0.12); color:var(--accent); }
+        .market-change.down { background:rgba(239, 68, 68, 0.12); color:var(--danger); }
+        .market-subheader { padding:0 22px 14px; display:flex; gap:18px; }
+        .market-stat { font-size:12px; color:var(--text-muted); }
+        .market-stat span { color:var(--text); font-weight:600; }
+        .market-canvas-wrap { padding:0 10px 10px; }
+        .market-canvas-wrap canvas { width:100%!important; border-radius:8px; }
 
         /* FACEBOOK */
-        .facebook-section { background:linear-gradient(135deg,#1877f2,#0d5fd8); padding:100px 5%; position:relative; z-index:1; overflow:hidden; }
-        .facebook-section::before { content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%; background:radial-gradient(circle at 30% 50%,rgba(255,255,255,0.1) 0%,transparent 60%); animation:bgShift 15s ease-in-out infinite; }
-        .facebook-inner { max-width:1000px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; position:relative; z-index:1; }
-        .facebook-text h2 { font-size:48px; font-weight:800; margin-bottom:20px; line-height:1.2; }
-        .facebook-text p { font-size:18px; line-height:1.8; opacity:0.9; margin-bottom:15px; }
-        .facebook-benefits { list-style:none; padding:0; margin:25px 0; }
-        .facebook-benefits li { padding:10px 0; font-size:16px; opacity:0.95; display:flex; align-items:center; gap:10px; }
-        .facebook-cta-box { background:rgba(255,255,255,0.15); backdrop-filter:blur(10px); padding:50px 40px; border-radius:24px; border:1px solid rgba(255,255,255,0.3); text-align:center; }
-        .fb-icon { font-size:80px; margin-bottom:20px; display:block; animation:pulse 2s ease-in-out infinite; }
-        @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.1)} }
-        .facebook-cta-box h3 { font-size:28px; font-weight:800; margin-bottom:15px; }
-        .facebook-cta-box p { font-size:16px; opacity:0.9; margin-bottom:30px; line-height:1.6; }
-        .btn-facebook { display:inline-flex; align-items:center; gap:12px; padding:18px 45px; background:white; color:#1877f2; text-decoration:none; border-radius:14px; font-weight:800; font-size:18px; transition:all 0.3s; box-shadow:0 10px 30px rgba(0,0,0,0.2); }
-        .btn-facebook:hover { transform:translateY(-4px); box-shadow:0 20px 50px rgba(0,0,0,0.3); }
-        .members-count { margin-top:20px; font-size:14px; opacity:0.8; }
+        .facebook-section { background:linear-gradient(135deg, #1877f2, #0e5ac7); padding:90px 5%; position:relative; z-index:1; }
+        .facebook-inner { max-width:1000px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:center; }
+        .facebook-text h2 { font-size:42px; font-weight:800; margin-bottom:18px; line-height:1.2; }
+        .facebook-text p { font-size:17px; line-height:1.7; opacity:0.95; margin-bottom:14px; }
+        .facebook-benefits { list-style:none; padding:0; margin:22px 0; }
+        .facebook-benefits li { padding:8px 0; font-size:15px; opacity:0.95; display:flex; align-items:center; gap:10px; }
+        .facebook-cta-box { background:rgba(255,255,255,0.12); backdrop-filter:blur(10px); padding:45px 35px; border-radius:20px; border:1px solid rgba(255,255,255,0.25); text-align:center; }
+        .fb-icon { font-size:72px; margin-bottom:18px; display:block; }
+        .facebook-cta-box h3 { font-size:26px; font-weight:800; margin-bottom:14px; }
+        .facebook-cta-box p { font-size:15px; opacity:0.9; margin-bottom:25px; line-height:1.6; }
+        .btn-facebook { display:inline-flex; align-items:center; gap:10px; padding:16px 40px; background:white; color:#1877f2; text-decoration:none; border-radius:12px; font-weight:800; font-size:17px; transition:all 0.3s; box-shadow:0 8px 20px rgba(0,0,0,0.15); }
+        .btn-facebook:hover { transform:translateY(-3px); box-shadow:0 15px 35px rgba(0,0,0,0.25); }
+        .members-count { margin-top:18px; font-size:13px; opacity:0.8; }
 
         /* VIDEOS */
-        .resources-grid { max-width:1400px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(350px,1fr)); gap:40px; }
-        .resource-card { background:linear-gradient(135deg,rgba(102,126,234,0.1),rgba(118,75,162,0.1)); padding:50px 40px; border-radius:20px; border:1px solid rgba(255,255,255,0.1); text-align:center; transition:all 0.3s; }
-        .resource-card:hover { transform:scale(1.05); box-shadow:0 20px 50px rgba(102,126,234,0.3); }
-        .resource-icon { font-size:60px; margin-bottom:24px; display:block; }
-        .resource-title { font-size:28px; font-weight:700; margin-bottom:16px; }
-        .resource-description { color:var(--text-muted); margin-bottom:30px; line-height:1.7; }
+        .resources-grid { max-width:1400px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:25px; }
+        .resource-card { background:rgba(45, 51, 72, 0.4); padding:45px 35px; border-radius:16px; border:1px solid var(--border); text-align:center; transition:all 0.3s; }
+        .resource-card:hover { transform:translateY(-8px); box-shadow:0 15px 35px rgba(16, 185, 129, 0.1); border-color:var(--accent); }
+        .resource-icon { font-size:54px; margin-bottom:20px; display:block; }
+        .resource-title { font-size:24px; font-weight:700; margin-bottom:14px; }
+        .resource-description { color:var(--text-muted); margin-bottom:25px; line-height:1.6; font-size:15px; }
 
-        /* ====== WITHDRAWAL PANEL ====== */
-        .withdrawal-section {
-            background: linear-gradient(135deg, rgba(10,22,40,0.95), rgba(26,41,66,0.95));
-            padding: 100px 5%;
-            position: relative; z-index: 1;
-            border-top: 2px solid rgba(0,217,163,0.2);
+        /* TERMS COMPACT */
+        .terms-compact {
+            background:rgba(245, 158, 11, 0.06);
+            border:1px solid rgba(245, 158, 11, 0.2);
+            border-radius:12px;
+            padding:18px 22px;
+            margin-bottom:28px;
+            display:flex;
+            align-items:center;
+            gap:16px;
         }
-        .withdrawal-container {
-            max-width: 700px; margin: 0 auto;
+        .terms-compact-icon {
+            width:42px; height:42px;
+            background:linear-gradient(135deg, #f59e0b, #fbbf24);
+            border-radius:8px;
+            display:flex; align-items:center; justify-content:center;
+            font-size:20px;
+            flex-shrink:0;
         }
+        .terms-compact-content { flex:1; }
+        .terms-compact-content h4 {
+            font-size:14px;
+            font-weight:700;
+            color:var(--warning);
+            margin-bottom:4px;
+        }
+        .terms-compact-content p {
+            font-size:12px;
+            color:rgba(255, 255, 255, 0.7);
+            line-height:1.4;
+            margin:0;
+        }
+        .btn-terms-compact {
+            padding:8px 20px;
+            background:linear-gradient(135deg, #f59e0b, #fbbf24);
+            color:white;
+            border:none;
+            border-radius:8px;
+            font-size:12px;
+            font-weight:700;
+            cursor:pointer;
+            transition:all 0.3s;
+            white-space:nowrap;
+        }
+        .btn-terms-compact:hover {
+            transform:translateY(-2px);
+            box-shadow:0 6px 16px rgba(245, 158, 11, 0.3);
+        }
+
+        /* MODAL */
+        #termsModal {
+            display:none;
+            position:fixed;
+            inset:0;
+            background:rgba(0,0,0,0.85);
+            backdrop-filter:blur(6px);
+            z-index:99999;
+            overflow-y:auto;
+            padding:30px;
+        }
+        .modal-content {
+            max-width:650px;
+            margin:50px auto;
+            background:rgba(45, 51, 72, 0.98);
+            border:1px solid var(--border);
+            border-radius:16px;
+            padding:40px;
+            box-shadow:0 25px 70px rgba(0,0,0,0.5);
+        }
+        .modal-header {
+            display:flex;
+            align-items:center;
+            gap:14px;
+            margin-bottom:25px;
+            padding-bottom:18px;
+            border-bottom:1px solid var(--border);
+        }
+        .modal-icon {
+            width:56px; height:56px;
+            background:linear-gradient(135deg, #f59e0b, #fbbf24);
+            border-radius:12px;
+            display:flex; align-items:center; justify-content:center;
+            font-size:28px;
+        }
+        .modal-header h3 {
+            font-size:22px;
+            font-weight:800;
+            color:var(--warning);
+            line-height:1.3;
+        }
+        .modal-body {
+            background:rgba(26, 31, 54, 0.4);
+            border:1px solid var(--border);
+            border-radius:12px;
+            padding:25px;
+            margin-bottom:25px;
+        }
+        .modal-body p {
+            line-height:1.7;
+            color:rgba(255, 255, 255, 0.9);
+            margin-bottom:16px;
+            font-size:15px;
+        }
+        .modal-body strong {
+            color:var(--warning);
+            font-weight:700;
+        }
+        .modal-body ul {
+            margin-left:20px;
+            margin-top:14px;
+            color:rgba(255, 255, 255, 0.85);
+        }
+        .modal-body ul li {
+            margin-bottom:10px;
+            font-size:14px;
+        }
+        .checkbox-container {
+            display:flex;
+            align-items:flex-start;
+            gap:12px;
+            background:rgba(16, 185, 129, 0.05);
+            border:1px solid rgba(16, 185, 129, 0.15);
+            border-radius:10px;
+            padding:18px;
+            margin-bottom:22px;
+            cursor:pointer;
+            transition:all 0.3s;
+        }
+        .checkbox-container:hover {
+            background:rgba(16, 185, 129, 0.08);
+            border-color:rgba(16, 185, 129, 0.3);
+        }
+        .checkbox-container input[type="checkbox"] {
+            width:22px;
+            height:22px;
+            cursor:pointer;
+            accent-color:var(--accent);
+            margin-top:2px;
+        }
+        .checkbox-label {
+            flex:1;
+            color:rgba(255, 255, 255, 0.95);
+            font-size:14px;
+            line-height:1.6;
+            cursor:pointer;
+        }
+        .checkbox-label strong {
+            color:var(--accent);
+        }
+        .modal-footer {
+            display:flex;
+            gap:12px;
+            justify-content:flex-end;
+        }
+        .btn-modal {
+            padding:12px 26px;
+            border:none;
+            border-radius:10px;
+            font-size:15px;
+            font-weight:700;
+            cursor:pointer;
+            transition:all 0.3s;
+        }
+        .btn-cancel {
+            background:rgba(255, 255, 255, 0.06);
+            color:white;
+            border:1px solid var(--border);
+        }
+        .btn-cancel:hover {
+            background:rgba(255, 255, 255, 0.1);
+        }
+        .btn-accept {
+            background:linear-gradient(135deg, var(--accent), var(--accent-light));
+            color:white;
+            opacity:0.4;
+            cursor:not-allowed;
+        }
+        .btn-accept.enabled {
+            opacity:1;
+            cursor:pointer;
+        }
+        .btn-accept.enabled:hover {
+            transform:translateY(-2px);
+            box-shadow:0 8px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        /* WITHDRAWAL */
+        .withdrawal-section { background:rgba(26, 31, 54, 0.8); padding:90px 5%; position:relative; z-index:1; border-top:1px solid var(--border); }
+        .withdrawal-container { max-width:700px; margin:0 auto; }
         .withdrawal-card {
-            background: rgba(15, 28, 50, 0.9);
-            border: 1px solid rgba(0,217,163,0.25);
-            border-radius: 24px;
-            padding: 50px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            background:rgba(45, 51, 72, 0.6);
+            border:1px solid var(--border);
+            border-radius:16px;
+            padding:40px;
+            box-shadow:0 15px 50px rgba(0,0,0,0.3);
+            opacity:0.4;
+            pointer-events:none;
+            transition:all 0.4s;
+        }
+        .withdrawal-card.unlocked {
+            opacity:1;
+            pointer-events:all;
         }
         .withdrawal-card h3 {
-            font-size: 26px; font-weight: 800;
-            margin-bottom: 8px; color: var(--safe);
-            display: flex; align-items: center; gap: 12px;
+            font-size:24px; font-weight:800;
+            margin-bottom:8px; color:var(--accent);
+            display:flex; align-items:center; gap:10px;
         }
         .withdrawal-card .subtitle {
-            color: var(--text-muted); font-size: 15px;
-            margin-bottom: 35px; padding-bottom: 25px;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
+            color:var(--text-muted); font-size:14px;
+            margin-bottom:30px; padding-bottom:20px;
+            border-bottom:1px solid var(--border);
         }
-        .form-group {
-            margin-bottom: 22px;
-        }
+        .form-group { margin-bottom:20px; }
         .form-group label {
-            display: block; font-size: 13px; font-weight: 700;
-            color: var(--text-muted); text-transform: uppercase;
-            letter-spacing: 1px; margin-bottom: 10px;
+            display:block; font-size:12px; font-weight:700;
+            color:var(--text-muted); text-transform:uppercase;
+            letter-spacing:0.5px; margin-bottom:8px;
         }
         .form-group select,
         .form-group input {
-            width: 100%; padding: 15px 18px;
-            background: rgba(10,22,40,0.7);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px; color: white;
-            font-size: 15px; outline: none;
-            transition: all 0.3s; appearance: none;
+            width:100%; padding:13px 16px;
+            background:rgba(26, 31, 54, 0.6);
+            border:1px solid var(--border);
+            border-radius:10px; color:white;
+            font-size:14px; outline:none;
+            transition:all 0.3s; appearance:none;
         }
-        .form-group select option { background: #0a1628; }
+        .form-group select option { background:#1a1f36; }
         .form-group select:focus, .form-group input:focus {
-            border-color: var(--safe);
-            box-shadow: 0 0 0 3px rgba(0,217,163,0.12);
+            border-color:var(--accent);
+            box-shadow:0 0 0 3px rgba(16, 185, 129, 0.1);
         }
-        .form-group input::placeholder { color: rgba(160,174,192,0.4); }
-        .withdrawal-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
-        }
+        .form-group input::placeholder { color:rgba(148, 163, 184, 0.4); }
+        .withdrawal-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
         .amount-display {
-            background: rgba(0,217,163,0.06);
-            border: 1px solid rgba(0,217,163,0.2);
-            border-radius: 12px; padding: 18px 20px;
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 25px;
+            background:rgba(16, 185, 129, 0.06);
+            border:1px solid rgba(16, 185, 129, 0.15);
+            border-radius:10px; padding:16px 18px;
+            display:flex; justify-content:space-between; align-items:center;
+            margin-bottom:22px;
         }
-        .amount-display span:first-child { color: var(--text-muted); font-size: 14px; }
-        .amount-display span:last-child { font-size: 24px; font-weight: 800; color: var(--safe); }
+        .amount-display span:first-child { color:var(--text-muted); font-size:13px; }
+        .amount-display span:last-child { font-size:22px; font-weight:800; color:var(--accent); }
         .btn-withdraw {
-            width: 100%; padding: 18px;
-            background: linear-gradient(135deg, var(--safe), #00f2fe);
-            color: var(--primary); border: none; border-radius: 14px;
-            font-size: 18px; font-weight: 800; cursor: pointer;
-            transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px;
+            width:100%; padding:16px;
+            background:linear-gradient(135deg, var(--accent), var(--accent-light));
+            color:white; border:none; border-radius:10px;
+            font-size:16px; font-weight:800; cursor:pointer;
+            transition:all 0.3s; display:flex; align-items:center; justify-content:center; gap:10px;
         }
-        .btn-withdraw:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(0,217,163,0.4); }
-        .withdrawal-disclaimer {
-            text-align: center; font-size: 12px;
-            color: rgba(160,174,192,0.5); margin-top: 15px; line-height: 1.6;
-        }
+        .btn-withdraw:hover { transform:translateY(-2px); box-shadow:0 10px 25px rgba(16, 185, 129, 0.3); }
+        .withdrawal-disclaimer { text-align:center; font-size:11px; color:rgba(148, 163, 184, 0.5); margin-top:14px; line-height:1.5; }
+        .locked-message { background:rgba(245, 158, 11, 0.08); border:1px solid rgba(245, 158, 11, 0.2); border-radius:12px; padding:18px; text-align:center; margin-bottom:22px; }
+        .locked-message p { color:var(--warning); font-weight:600; margin:0; font-size:14px; }
 
-        /* SUCCESS MESSAGE */
+        /* SUCCESS */
         #successMsg {
-            display: none;
-            background: linear-gradient(135deg, rgba(0,217,163,0.1), rgba(0,242,254,0.05));
-            border: 2px solid rgba(0,217,163,0.4);
-            border-radius: 20px; padding: 40px;
-            text-align: center; margin-top: 30px;
-            animation: fadeInMsg 0.6s ease-out;
+            display:none;
+            background:rgba(16, 185, 129, 0.08);
+            border:2px solid rgba(16, 185, 129, 0.3);
+            border-radius:16px; padding:35px;
+            text-align:center; margin-top:28px;
         }
-        @keyframes fadeInMsg { from{transform:scale(0.9);opacity:0} to{transform:scale(1);opacity:1} }
-        #successMsg .check-icon { font-size: 64px; margin-bottom: 20px; animation: bounceIn 0.8s ease-out; }
-        @keyframes bounceIn { 0%{transform:scale(0)} 60%{transform:scale(1.2)} 100%{transform:scale(1)} }
-        #successMsg h3 { font-size: 26px; font-weight: 800; color: var(--safe); margin-bottom: 15px; }
-        #successMsg p { color: var(--text-muted); font-size: 16px; line-height: 1.8; margin-bottom: 10px; }
-        #successMsg .ref-code { font-size: 13px; color: rgba(0,217,163,0.6); margin-top: 15px; font-family: monospace; }
-        .validation-steps { display: flex; justify-content: center; gap: 30px; margin: 25px 0; flex-wrap: wrap; }
-        .step { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-        .step-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--safe); animation: blink 1.5s ease-in-out infinite; }
-        .step-dot.delay1 { animation-delay: 0.5s; }
-        .step-dot.delay2 { animation-delay: 1s; }
+        #successMsg .check-icon { font-size:58px; margin-bottom:18px; }
+        #successMsg h3 { font-size:24px; font-weight:800; color:var(--accent); margin-bottom:14px; }
+        #successMsg p { color:var(--text-muted); font-size:15px; line-height:1.7; margin-bottom:10px; }
+        #successMsg .ref-code { font-size:12px; color:rgba(16, 185, 129, 0.6); margin-top:14px; font-family:monospace; }
+        .validation-steps { display:flex; justify-content:center; gap:28px; margin:22px 0; flex-wrap:wrap; }
+        .step { display:flex; flex-direction:column; align-items:center; gap:7px; }
+        .step-dot { width:11px; height:11px; border-radius:50%; background:var(--accent); animation:blink 1.5s ease-in-out infinite; }
+        .step-dot.delay1 { animation-delay:0.5s; }
+        .step-dot.delay2 { animation-delay:1s; }
         @keyframes blink { 0%,100%{opacity:0.3;transform:scale(0.8)} 50%{opacity:1;transform:scale(1.2)} }
-        .step span { font-size: 12px; color: var(--text-muted); }
+        .step span { font-size:11px; color:var(--text-muted); }
 
         /* CTA */
-        .cta-section { background:linear-gradient(135deg,var(--safe),#00f2fe); padding:100px 5%; text-align:center; }
-        .cta-section .section-title { color:var(--primary); font-size:56px; }
-        .cta-section .section-description { color:rgba(10,22,40,0.8); font-size:20px; margin-bottom:40px; }
-        .cta-section .btn { background:var(--primary); color:var(--text); font-size:18px; }
-        .cta-section .btn:hover { background:var(--secondary); transform:translateY(-3px); }
+        .cta-section { background:linear-gradient(135deg, var(--accent), var(--accent-light)); padding:90px 5%; text-align:center; }
+        .cta-section .section-title { color:white; font-size:48px; }
+        .cta-section .section-description { color:rgba(255, 255, 255, 0.9); font-size:18px; margin-bottom:35px; }
+        .cta-section .btn { background:white; color:var(--accent); font-size:16px; }
+        .cta-section .btn:hover { background:rgba(255,255,255,0.95); transform:translateY(-2px); }
 
         /* FOOTER */
-        footer { background:rgba(10,22,40,0.95); padding:80px 5% 30px; border-top:1px solid rgba(255,255,255,0.1); position:relative; z-index:1; }
-        .footer-content { max-width:1400px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:60px; margin-bottom:60px; }
-        .footer-logo { font-size:32px; font-weight:800; background:linear-gradient(135deg,#00d9a3,#00f2fe); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:20px; display:inline-block; }
-        .footer-description { color:var(--text-muted); line-height:1.7; margin-bottom:30px; }
-        .footer-column h4 { font-size:18px; font-weight:700; margin-bottom:20px; color:var(--safe); }
+        footer { background:rgba(26, 31, 54, 0.98); padding:70px 5% 25px; border-top:1px solid var(--border); position:relative; z-index:1; }
+        .footer-content { max-width:1400px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:50px; margin-bottom:50px; }
+        .footer-logo { font-size:28px; font-weight:800; background:linear-gradient(135deg, #10b981, #34d399); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:18px; display:inline-block; }
+        .footer-description { color:var(--text-muted); line-height:1.6; margin-bottom:25px; font-size:14px; }
+        .footer-column h4 { font-size:16px; font-weight:700; margin-bottom:18px; color:var(--accent); }
         .footer-links { list-style:none; }
-        .footer-links li { margin-bottom:12px; }
-        .footer-links a { color:var(--text-muted); text-decoration:none; transition:all 0.3s; display:inline-block; }
-        .footer-links a:hover { color:var(--safe); padding-left:5px; }
+        .footer-links li { margin-bottom:10px; }
+        .footer-links a { color:var(--text-muted); text-decoration:none; transition:all 0.3s; display:inline-block; font-size:14px; }
+        .footer-links a:hover { color:var(--accent); padding-left:4px; }
         .footer-links .no-link { color:var(--text-muted); cursor:default; }
-        .footer-bottom { max-width:1400px; margin:0 auto; padding-top:30px; border-top:1px solid rgba(255,255,255,0.1); text-align:center; color:var(--text-muted); font-size:14px; }
+        .footer-bottom { max-width:1400px; margin:0 auto; padding-top:25px; border-top:1px solid var(--border); text-align:center; color:var(--text-muted); font-size:13px; }
 
         /* RESPONSIVE */
         @media(max-width:1024px) {
             .hero-content { grid-template-columns:1fr; }
-            .hero-text h1 { font-size:48px; }
+            .hero-text h1 { font-size:44px; }
             .footer-content { grid-template-columns:1fr 1fr; }
             .facebook-inner { grid-template-columns:1fr; }
-            .facebook-text h2 { font-size:36px; }
             .withdrawal-grid { grid-template-columns:1fr; }
         }
         @media(max-width:768px) {
             .nav-links { display:none; }
             .mobile-menu { display:flex; }
-            .hero-text h1 { font-size:36px; }
-            .section-title { font-size:36px; }
+            .hero-text h1 { font-size:34px; }
+            .section-title { font-size:32px; }
             .stats-container { grid-template-columns:1fr; }
             .footer-content { grid-template-columns:1fr; }
-            .cta-section .section-title { font-size:36px; }
             .user-badge { display:none; }
             .markets-grid { grid-template-columns:1fr; }
-            .withdrawal-card { padding: 30px 25px; }
+            .withdrawal-card { padding:28px 22px; }
+            .modal-content { padding:28px 22px; }
+            .terms-compact { flex-direction:column; text-align:center; }
         }
 
-        .fade-in { opacity:0; transform:translateY(30px); transition:all 0.6s ease-out; }
+        .fade-in { opacity:0; transform:translateY(25px); transition:all 0.6s ease-out; }
         .fade-in.visible { opacity:1; transform:translateY(0); }
     </style>
 </head>
 <body>
 
-<!-- ====== LOGIN ====== -->
+<!-- LOGIN -->
 <div id="loginScreen">
     <div class="login-box">
         <div class="login-logo"><span>MERCADO-WEB</span></div>
-        <p class="login-subtitle">Plataforma <strong>Educativa</strong> contra Estafas Financieras</p>
+        <p class="login-subtitle">Plataforma <strong></strong> contra Estafas Financieras</p>
         <div class="login-form">
             <div class="input-group">
                 <label>Usuario</label>
                 <div class="input-wrapper">
                     <span>👤</span>
-                    <input type="text" id="inputUser" placeholder="Ingresa tu nombre de usuario" autocomplete="off">
+                    <input type="text" id="inputUser" placeholder="Tu nombre de usuario" autocomplete="off">
                 </div>
             </div>
             <div class="input-group">
                 <label>Contraseña</label>
                 <div class="input-wrapper">
                     <span>🔒</span>
-                    <input type="password" id="inputPass" placeholder="Ingresa tu contraseña" autocomplete="off">
+                    <input type="password" id="inputPass" placeholder="Tu contraseña" autocomplete="off">
                 </div>
             </div>
-            <div class="login-error" id="loginError">❌ Contraseña incorrecta. Intenta de nuevo.</div>
-            <button class="btn-login" onclick="doLogin()">🚀 INGRESAR</button>
+            <div class="login-error" id="loginError">❌ Error</div>
+            <button class="btn-login" id="btnLogin">🚀 INGRESAR</button>
         </div>
-        <p class="login-hint">Ingresa cualquier usuario y contraseña: <strong>12345</strong></p>
+        <p class="login-hint">Usuario: <strong>el indicado por su asesor</strong> | Contraseña: <strong>12****</strong></p>
     </div>
 </div>
 
-<!-- ====== MAIN PAGE ====== -->
+<!-- MAIN -->
 <div id="mainPage">
-
-<div class="animated-bg">
-    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
-    <div class="particle"></div><div class="particle"></div><div class="particle"></div>
-    <div class="particle"></div><div class="particle"></div>
-</div>
+<div class="animated-bg"></div>
 
 <header>
     <nav>
@@ -486,15 +583,15 @@
     <div class="hero-content">
         <div class="hero-text">
             <h1>Protege Tu Dinero <span class="highlight">Antes de Perderlo</span></h1>
-            <p>Miles de personas pierden sus ahorros cada día en falsas plataformas de inversión. MERCADO-WEB te enseña a identificar estafas financieras antes de que sea demasiado tarde.</p>
+            <p>Miles de personas pierden sus ahorros cada día en falsas plataformas de inversión. MERCADO-WEB te enseña a identificar estafas financieras antes de que sea demasiado tarde, y te garantiza un retiro, efectivo,aguil, y seguro.</p>
             <div class="cta-buttons">
                 <a href="#alertas" class="btn btn-primary">🛡️ Ver Alertas Activas</a>
                 <a href="#guias" class="btn btn-secondary">📚 Ver Guías Gratuitas</a>
             </div>
         </div>
-        <div class="hero-video">
+        <div>
             <div class="video-container">
-                <video controls><source src="intro.mp4" type="video/mp4">Tu navegador no soporta video.</video>
+                <video controls><source src="intro.mp4" type="video/mp4">Video no disponible</video>
             </div>
         </div>
     </div>
@@ -503,7 +600,7 @@
 <!-- STATS -->
 <div class="stats-bar">
     <div class="stats-container">
-        <div class="stat-item"><span class="stat-number">$45M+</span><div class="stat-label">Perdidos en estafas (2024)</div></div>
+        <div class="stat-item"><span class="stat-number">$45M+</span><div class="stat-label">Perdidos en estafas (2020)(2026)</div></div>
         <div class="stat-item"><span class="stat-number">80%</span><div class="stat-label">Nunca recuperan su dinero</div></div>
         <div class="stat-item"><span class="stat-number">15K+</span><div class="stat-label">Personas educadas</div></div>
         <div class="stat-item"><span class="stat-number">24/7</span><div class="stat-label">Monitoreo de amenazas</div></div>
@@ -515,28 +612,88 @@
     <div class="section-header fade-in">
         <span class="section-tag">Nuestra Misión</span>
         <h2 class="section-title">¿Qué es MERCADO-WEB?</h2>
-        <p class="section-description">Somos una plataforma educativa dedicada a proteger a las personas contra estafas financieras. Exponemos fraudes, educamos sobre señales de alerta y brindamos recursos gratuitos.</p>
+        <p class="section-description">Somos una plataforma educativa dedicada a proteger a las personas contra estafas financieras. Exponemos fraudes, educamos sobre señales de alerta y brindamos recursos gratuitos para tu seguridad financiera.</p>
     </div>
     <div class="about-grid">
-        <div class="about-card fade-in"><div class="card-icon">🎓</div><h3 class="card-title">Educación Real</h3><p class="card-description">Contenido creado por expertos en seguridad financiera para identificar patrones de fraude profesionales.</p></div>
-        <div class="about-card fade-in"><div class="card-icon">🚨</div><h3 class="card-title">Alertas Tempranas</h3><p class="card-description">Monitoreamos constantemente nuevas amenazas y te notificamos sobre plataformas fraudulentas.</p></div>
-        <div class="about-card fade-in"><div class="card-icon">🤝</div><h3 class="card-title">Comunidad Activa</h3><p class="card-description">Miles de personas comparten experiencias y señales de alerta. Juntos somos más fuertes contra el fraude.</p></div>
+        <div class="about-card fade-in"><div class="card-icon">🎓</div><h3 class="card-title">Educación Real</h3><p class="card-description">Contenido creado por expertos en seguridad financiera. Aprendes a identificar patrones de fraude utilizados por estafadores profesionales.</p></div>
+        <div class="about-card fade-in"><div class="card-icon">🚨</div><h3 class="card-title">Alertas Tempranas</h3><p class="card-description">Monitoreamos constantemente nuevas amenazas. Te notificamos sobre plataformas fraudulentas antes de que muchos caigan en la trampa.</p></div>
+        <div class="about-card fade-in"><div class="card-icon">🤝</div><h3 class="card-title">Comunidad Activa</h3><p class="card-description">Miles de personas comparten experiencias, señales de alerta y se apoyan mutuamente. Juntos somos más fuertes contra el fraude.</p></div>
     </div>
 </section>
 
 <!-- ALERTS -->
-<section id="alertas" style="background:rgba(26,41,66,0.3)">
+<section id="alertas" style="background:rgba(45, 51, 72, 0.2)">
     <div class="section-header fade-in">
         <span class="section-tag">🚨 ALERTAS ACTIVAS</span>
         <h2 class="section-title">Señales de Estafa Más Comunes</h2>
         <p class="section-description">Aprende a identificar estas banderas rojas antes de invertir tu dinero</p>
     </div>
     <div class="alerts-container">
-        <div class="alert-box fade-in"><div class="alert-header"><div class="alert-icon">⚠️</div><h3 class="alert-title">Promesas de Ganancias Garantizadas</h3></div><div class="alert-content"><p><strong>SEÑALES DE ALERTA:</strong></p><ul><li>❌ "Ganancias del 300% garantizadas"</li><li>❌ "Sin riesgo, solo ganancias"</li><li>❌ "Inversión segura con retornos diarios"</li><li>❌ "Duplica tu dinero en 30 días"</li></ul><p style="margin-top:15px"><strong>REALIDAD:</strong> Ninguna inversión legítima garantiza ganancias. Todo tiene riesgo.</p></div></div>
-        <div class="alert-box fade-in"><div class="alert-header"><div class="alert-icon">🏦</div><h3 class="alert-title">Uso de Nombres de Bancos Reales</h3></div><div class="alert-content"><p><strong>SEÑALES DE ALERTA:</strong></p><ul><li>❌ "Respaldado por Santander UK"</li><li>❌ "Verificado por BBVA Internacional"</li><li>❌ "Cuenta con notaría en Londres"</li><li>❌ "Sistema SWIFT activado"</li></ul><p style="margin-top:15px"><strong>REALIDAD:</strong> Los estafadores usan nombres de instituciones legítimas para generar confianza falsa.</p></div></div>
-        <div class="alert-box fade-in"><div class="alert-header"><div class="alert-icon">💸</div><h3 class="alert-title">Retiros "Ilimitados" sin Restricciones</h3></div><div class="alert-content"><p><strong>SEÑALES DE ALERTA:</strong></p><ul><li>❌ "Retiros ilimitados sin comisiones"</li><li>❌ "Procesamos en 24 horas"</li><li>❌ "Sin límites de cantidad"</li><li>❌ Mostrar saldos millonarios falsos</li></ul><p style="margin-top:15px"><strong>REALIDAD:</strong> Cuando intentas retirar, piden "validaciones" o simplemente desaparecen.</p></div></div>
-        <div class="alert-box fade-in"><div class="alert-header"><div class="alert-icon">📱</div><h3 class="alert-title">Contacto Solo por WhatsApp o Telegram</h3></div><div class="alert-content"><p><strong>SEÑALES DE ALERTA:</strong></p><ul><li>❌ "Escríbeme al WhatsApp para más info"</li><li>❌ No tienen oficinas físicas verificables</li><li>❌ Asesores con nombres genéricos</li><li>❌ Presión para invertir rápido</li></ul><p style="margin-top:15px"><strong>REALIDAD:</strong> Empresas legítimas tienen canales oficiales y personal identificable.</p></div></div>
-        <div class="alert-box fade-in"><div class="alert-header"><div class="alert-icon">🎯</div><h3 class="alert-title">Presión y Urgencia Artificial</h3></div><div class="alert-content"><p><strong>SEÑALES DE ALERTA:</strong></p><ul><li>❌ "Oferta solo por hoy"</li><li>❌ "Últimos cupos disponibles"</li><li>❌ "Si no inviertes ahora, pierdes la oportunidad"</li><li>❌ Testimonios falsos de "ganancias recientes"</li></ul><p style="margin-top:15px"><strong>REALIDAD:</strong> La presión es una táctica para evitar que investigues. Inversiones reales te dan tiempo.</p></div></div>
+        <div class="alert-box fade-in">
+            <div class="alert-header"><div class="alert-icon">⚠️</div><h3 class="alert-title">Promesas de Ganancias Garantizadas</h3></div>
+            <div class="alert-content">
+                <p><strong>SEÑALES DE ALERTA:</strong></p>
+                <ul>
+                    <li>❌ "Ganancias del 300% garantizadas"</li>
+                    <li>❌ "Sin riesgo, solo ganancias"</li>
+                    <li>❌ "Inversión segura con retornos diarios"</li>
+                    <li>❌ "Duplica tu dinero en 10 días"</li>
+                </ul>
+                <p style="margin-top:14px"><strong>REALIDAD:</strong> Ninguna inversión legítima garantiza ganancias. Todo tiene riesgo.</p>
+            </div>
+        </div>
+        <div class="alert-box fade-in">
+            <div class="alert-header"><div class="alert-icon">🏦</div><h3 class="alert-title">Uso de Nombres de Bancos Reales</h3></div>
+            <div class="alert-content">
+                <p><strong>SEÑALES DE ALERTA:</strong></p>
+                <ul>
+                    <li>❌ "Respaldado por HSBC london"</li>
+                    <li>❌ "Verificado por BBVA Internacional"</li>
+                    <li>❌ "Cuenta con notaría en Londres"</li>
+                    <li>❌ "Sistema de impuestos internos"</li>
+                </ul>
+                <p style="margin-top:14px"><strong>REALIDAD:</strong> Los estafadores usan nombres de instituciones legítimas para generar confianza falsa.</p>
+            </div>
+        </div>
+        <div class="alert-box fade-in">
+            <div class="alert-header"><div class="alert-icon">💸</div><h3 class="alert-title">Retiros "Ilimitados" y Procesamiento Rápido</h3></div>
+            <div class="alert-content">
+                <p><strong>SEÑALES DE ALERTA:</strong></p>
+                <ul>
+                    <li>❌ "Retiros ilimitados sin comisiones"</li>
+                    <li>❌ "Procesamos en 15 minutos"</li>
+                    <li>❌ "Sin límites de cantidad"</li>
+                    <li>❌ Mostrar saldos millonarios falsos</li>
+                </ul>
+                <p style="margin-top:14px"><strong>REALIDAD:</strong> Cuando intentas retirar, piden "validaciones", "impuestos" o simplemente desaparecen.</p>
+            </div>
+        </div>
+        <div class="alert-box fade-in">
+            <div class="alert-header"><div class="alert-icon">📱</div><h3 class="alert-title">Contacto Solo por Telegram</h3></div>
+            <div class="alert-content">
+                <p><strong>SEÑALES DE ALERTA:</strong></p>
+                <ul>
+                    <li>❌ "Escríbeme al telegram para más info"</li>
+                    <li>❌ No tienen sitios web verificables</li>
+                    <li>❌ Asesores con nombres genéricos</li>
+                    <li>❌ Presión para invertir rápido</li>
+                </ul>
+                <p style="margin-top:14px"><strong>REALIDAD:</strong> Empresas legítimas tienen canales oficiales, oficinas y personal identificable.</p>
+            </div>
+        </div>
+        <div class="alert-box fade-in">
+            <div class="alert-header"><div class="alert-icon">🎯</div><h3 class="alert-title">Presión y Urgencia Artificial</h3></div>
+            <div class="alert-content">
+                <p><strong>SEÑALES DE ALERTA:</strong></p>
+                <ul>
+                    <li>❌ "Oferta solo por hoy"</li>
+                    <li>❌ "Últimos cupos disponibles"</li>
+                    <li>❌ "Si no inviertes ahora, pierdes la oportunidad"</li>
+                    <li>❌ Testimonios falsos de "ganancias recientes"</li>
+                </ul>
+                <p style="margin-top:14px"><strong>REALIDAD:</strong> La presión es una táctica para evitar que investigues. Inversiones reales te dan tiempo.</p>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -548,32 +705,99 @@
         <p class="section-description">Guías completas y prácticas para identificar y evitar estafas financieras</p>
     </div>
     <div class="guias-grid">
-        <div class="guia-card fade-in"><div class="guia-icon">📋</div><h3 class="guia-title">Checklist de Verificación</h3><p class="guia-description">20 puntos esenciales para verificar antes de invertir en cualquier plataforma</p><ul class="guia-list"><li>¿La empresa tiene licencia oficial?</li><li>¿Aparece en registros públicos?</li><li>¿Tiene oficinas físicas verificables?</li><li>¿Los contactos son verificables?</li><li>¿Las promesas son realistas?</li><li>¿Hay testimonios independientes?</li></ul></div>
-        <div class="guia-card fade-in"><div class="guia-icon">🚨</div><h3 class="guia-title">15 Señales de Alerta</h3><p class="guia-description">Las banderas rojas más comunes que indican una posible estafa</p><ul class="guia-list"><li>Promesas de ganancias garantizadas</li><li>Presión para invertir rápido</li><li>Contacto solo por WhatsApp</li><li>Solicitan datos bancarios inmediatos</li><li>No permiten retirar fondos</li><li>Usan nombres de bancos sin autorización</li></ul></div>
-        <div class="guia-card fade-in"><div class="guia-icon">🛡️</div><h3 class="guia-title">Protección de Datos Personales</h3><p class="guia-description">Cómo proteger tu información personal y financiera en línea</p><ul class="guia-list"><li>Usa contraseñas únicas y fuertes</li><li>Activa autenticación de dos factores</li><li>No compartas datos bancarios por chat</li><li>Verifica URLs antes de ingresar datos</li><li>Revisa extractos bancarios regularmente</li><li>Reporta actividad sospechosa de inmediato</li></ul></div>
-        <div class="guia-card fade-in"><div class="guia-icon">💰</div><h3 class="guia-title">Inversiones Legítimas</h3><p class="guia-description">Cómo identificar oportunidades de inversión reales y reguladas</p><ul class="guia-list"><li>Brokers registrados ante reguladores</li><li>Fondos con historial verificable</li><li>Información transparente de comisiones</li><li>Proceso de retiro claro y documentado</li><li>Atención al cliente verificable</li><li>Contratos y términos claros por escrito</li></ul></div>
-        <div class="guia-card fade-in"><div class="guia-icon">📱</div><h3 class="guia-title">Estafas por Redes Sociales</h3><p class="guia-description">Fraudes comunes en WhatsApp, Telegram, Facebook e Instagram</p><ul class="guia-list"><li>Grupos de inversión falsos</li><li>Influencers pagados por estafadores</li><li>Esquemas piramidales disfrazados</li><li>Bots que simulan ser asesores</li><li>Testimonios y capturas falsas</li><li>Links maliciosos en mensajes</li></ul></div>
-        <div class="guia-card fade-in"><div class="guia-icon">⚖️</div><h3 class="guia-title">Qué Hacer Si Te Estafaron</h3><p class="guia-description">Pasos inmediatos y legales a seguir si fuiste víctima de fraude</p><ul class="guia-list"><li>Reporta a tu banco inmediatamente</li><li>Presenta denuncia ante autoridades</li><li>Recopila toda la evidencia posible</li><li>Contacta organismos de protección</li><li>No hagas más pagos bajo presión</li><li>Consulta con un abogado especializado</li></ul></div>
+        <div class="guia-card fade-in">
+            <div class="guia-icon">📋</div>
+            <h3 class="guia-title">Checklist de Verificación</h3>
+            <p class="guia-description">20 puntos esenciales para verificar antes de invertir en cualquier plataforma</p>
+            <ul class="guia-list">
+                <li>¿La empresa tiene licencia oficial?</li>
+                <li>¿Aparece en registros públicos?</li>
+                <li>¿Tiene oficinas físicas verificables?</li>
+                <li>¿Los contactos son verificables?</li>
+                <li>¿Las promesas son realistas?</li>
+                <li>¿Hay testimonios independientes?</li>
+            </ul>
+        </div>
+        <div class="guia-card fade-in">
+            <div class="guia-icon">🚨</div>
+            <h3 class="guia-title">15 Señales de Alerta</h3>
+            <p class="guia-description">Las banderas rojas más comunes que indican una posible estafa</p>
+            <ul class="guia-list">
+                <li>Promesas de ganancias garantizadas</li>
+                <li>Presión para invertir rápido</li>
+                <li>Contacto solo por telegram</li>
+                <li>Solicitan datos bancarios inmediatos</li>
+                <li>No permiten retirar fondos fácilmente</li>
+                <li>Usan nombres de bancos sin autorización</li>
+            </ul>
+        </div>
+        <div class="guia-card fade-in">
+            <div class="guia-icon">🛡️</div>
+            <h3 class="guia-title">Protección de Datos Personales</h3>
+            <p class="guia-description">Cómo proteger tu información personal y financiera en línea</p>
+            <ul class="guia-list">
+                <li>Usa contraseñas únicas y fuertes</li>
+                <li>Activa autenticación de dos factores</li>
+                <li>No compartas datos bancarios por chat</li>
+                <li>Verifica URLs antes de ingresar datos</li>
+                <li>Revisa extractos bancarios regularmente</li>
+                <li>Reporta actividad sospechosa de inmediato</li>
+            </ul>
+        </div>
+        <div class="guia-card fade-in">
+            <div class="guia-icon">💰</div>
+            <h3 class="guia-title">Inversiones Legítimas</h3>
+            <p class="guia-description">Cómo identificar oportunidades de inversión reales y reguladas</p>
+            <ul class="guia-list">
+                <li>Brokers registrados ante reguladores</li>
+                <li>Fondos con historial verificable</li>
+                <li>Información transparente de comisiones</li>
+                <li>Proceso de retiro claro y documentado</li>
+                <li>Atención al cliente verificable</li>
+                <li>Contratos y términos claros por escrito</li>
+            </ul>
+        </div>
+        <div class="guia-card fade-in">
+            <div class="guia-icon">📱</div>
+            <h3 class="guia-title">Estafas por Redes Sociales</h3>
+            <p class="guia-description">Fraudes comunes en, Telegram,e Instagram</p>
+            <ul class="guia-list">
+                <li>Grupos de inversión falsos</li>
+                <li>Influencers pagados por estafadores</li>
+                <li>Esquemas piramidales disfrazados</li>
+                <li>Bots que simulan ser asesores</li>
+                <li>Testimonios y capturas falsas</li>
+                <li>Links maliciosos en mensajes</li>
+            </ul>
+        </div>
+        <div class="guia-card fade-in">
+            <div class="guia-icon">⚖️</div>
+            <h3 class="guia-title">Qué Hacer Si Te Estafaron</h3>
+            <p class="guia-description">Pasos inmediatos y legales a seguir si fuiste víctima de fraude</p>
+            <ul class="guia-list">
+                <li>Reporta a tu banco inmediatamente</li>
+                <li>Presenta denuncia ante autoridades</li>
+                <li>Recopila toda la evidencia posible</li>
+                <li>Contacta a organismos de protección</li>
+                <li>No hagas más pagos bajo presión</li>
+                <li>Consulta con un abogado especializado</li>
+            </ul>
+        </div>
     </div>
 </section>
 
-<!-- ====== MERCADOS EN TIEMPO REAL ====== -->
+<!-- MARKETS -->
 <section class="markets-section" id="mercados">
     <div class="section-header fade-in">
         <span class="section-tag">📈 MERCADOS EN VIVO</span>
-        <h2 class="section-title">Mercados Globales</h2>
-        <p class="section-description">Monitoreo educativo de cómo fluctúan los mercados financieros regulados en tiempo real</p>
+        <h2 class="section-title">Mercados Globales en Tiempo Real</h2>
+        <p class="section-description">Monitoreo educativo de cómo fluctúan los mercados financieros regulados</p>
     </div>
     <div class="markets-grid">
         <div class="market-card fade-in">
             <div class="market-header">
-                <div>
-                    <div class="market-name">🇺🇸 S&amp;P 500</div>
-                </div>
-                <div>
-                    <div class="market-price" id="price-sp500">5,234.18</div>
-                    <div class="market-change up" id="change-sp500">▲ +0.42%</div>
-                </div>
+                <div><div class="market-name">🇺🇸 S&P 500</div></div>
+                <div><div class="market-price" id="price-sp500">5,234.18</div><div class="market-change up" id="change-sp500">▲ +0.42%</div></div>
             </div>
             <div class="market-subheader">
                 <div class="market-stat">Máx: <span id="high-sp500">5,251.20</span></div>
@@ -585,10 +809,7 @@
         <div class="market-card fade-in">
             <div class="market-header">
                 <div><div class="market-name">₿ Bitcoin / USD</div></div>
-                <div>
-                    <div class="market-price" id="price-btc">67,842.50</div>
-                    <div class="market-change up" id="change-btc">▲ +1.87%</div>
-                </div>
+                <div><div class="market-price" id="price-btc">67,842.50</div><div class="market-change up" id="change-btc">▲ +1.87%</div></div>
             </div>
             <div class="market-subheader">
                 <div class="market-stat">Máx: <span id="high-btc">68,500.00</span></div>
@@ -600,10 +821,7 @@
         <div class="market-card fade-in">
             <div class="market-header">
                 <div><div class="market-name">🥇 Oro / USD</div></div>
-                <div>
-                    <div class="market-price" id="price-gold">2,318.40</div>
-                    <div class="market-change down" id="change-gold">▼ -0.23%</div>
-                </div>
+                <div><div class="market-price" id="price-gold">2,318.40</div><div class="market-change down" id="change-gold">▼ -0.23%</div></div>
             </div>
             <div class="market-subheader">
                 <div class="market-stat">Máx: <span id="high-gold">2,331.10</span></div>
@@ -615,10 +833,7 @@
         <div class="market-card fade-in">
             <div class="market-header">
                 <div><div class="market-name">🇪🇺 EUR / USD</div></div>
-                <div>
-                    <div class="market-price" id="price-eur">1.0842</div>
-                    <div class="market-change up" id="change-eur">▲ +0.11%</div>
-                </div>
+                <div><div class="market-price" id="price-eur">1.0842</div><div class="market-change up" id="change-eur">▲ +0.11%</div></div>
             </div>
             <div class="market-subheader">
                 <div class="market-stat">Máx: <span id="high-eur">1.0861</span></div>
@@ -663,43 +878,70 @@
         <p class="section-description">Tutoriales y casos reales explicados paso a paso</p>
     </div>
     <div class="resources-grid">
-        <div class="resource-card fade-in"><span class="resource-icon">📘</span><h3 class="resource-title">Cómo Identificar Estafas</h3><p class="resource-description">Serie de videos mostrando las técnicas más comunes que usan los estafadores</p><a href="https://www.youtube.com/results?search_query=como+identificar+estafas+financieras" target="_blank" class="btn btn-primary">Ver Videos</a></div>
-        <div class="resource-card fade-in"><span class="resource-icon">📱</span><h3 class="resource-title">Casos Reales Documentados</h3><p class="resource-description">Videos de casos reales explicando cómo operaron las estafas y cómo evitarlas</p><a href="https://www.youtube.com/results?search_query=casos+reales+estafas+inversiones" target="_blank" class="btn btn-primary">Ver Casos</a></div>
-        <div class="resource-card fade-in"><span class="resource-icon">🎥</span><h3 class="resource-title">Tutoriales de Protección</h3><p class="resource-description">Guías prácticas sobre cómo proteger tus datos y verificar plataformas de inversión</p><a href="https://www.youtube.com/results?search_query=como+protegerse+estafas+online" target="_blank" class="btn btn-primary">Ver Tutoriales</a></div>
+        <div class="resource-card fade-in">
+            <span class="resource-icon">📘</span>
+            <h3 class="resource-title">Cómo Identificar Estafas</h3>
+            <p class="resource-description">Serie de videos mostrando las técnicas más comunes que usan los estafadores</p>
+            <a href="https://www.youtube.com/results?search_query=como+identificar+estafas+financieras" target="_blank" class="btn btn-primary">Ver Videos</a>
+        </div>
+        <div class="resource-card fade-in">
+            <span class="resource-icon">📱</span>
+            <h3 class="resource-title">Casos Reales Documentados</h3>
+            <p class="resource-description">Videos de casos reales explicando cómo operaron las estafas y cómo evitarlas</p>
+            <a href="https://www.youtube.com/results?search_query=casos+reales+estafas+inversiones" target="_blank" class="btn btn-primary">Ver Casos</a>
+        </div>
+        <div class="resource-card fade-in">
+            <span class="resource-icon">🎥</span>
+            <h3 class="resource-title">Tutoriales de Protección</h3>
+            <p class="resource-description">Guías prácticas sobre cómo proteger tus datos y verificar plataformas de inversión</p>
+            <a href="https://www.youtube.com/results?search_query=como+protegerse+estafas+online" target="_blank" class="btn btn-primary">Ver Tutoriales</a>
+        </div>
     </div>
 </section>
 
-<!-- ====== WITHDRAWAL PANEL ====== -->
+<!-- WITHDRAWAL -->
 <section class="withdrawal-section" id="retiro">
     <div class="section-header fade-in">
         <span class="section-tag">💳 PROCESO DE RETIRO</span>
         <h2 class="section-title">Solicitar Retiro</h2>
-        <p class="section-description">Así es como funciona un proceso de retiro en una plataforma regulada legítima</p>
+        <p class="section-description">Así funciona un proceso de retiro en una plataforma regulada legítima</p>
     </div>
     <div class="withdrawal-container">
-        <div class="withdrawal-card fade-in">
+        
+        <!-- TERMS COMPACT -->
+        <div class="terms-compact fade-in">
+            <div class="terms-compact-icon">⚖️</div>
+            <div class="terms-compact-content">
+                <h4>Términos y Condiciones</h4>
+                <p>Debe leer y aceptar los términos antes de procesar su retiro</p>
+            </div>
+            <button class="btn-terms-compact" id="btnOpenTerms">LEER TÉRMINOS</button>
+        </div>
+
+        <!-- FORM -->
+        <div class="withdrawal-card" id="withdrawalForm">
+            <div class="locked-message" id="lockedMsg">
+                <p>🔒 Debe aceptar los términos y condiciones primero</p>
+            </div>
+            
             <h3>🏦 Datos Bancarios para Retiro</h3>
-            <p class="subtitle">Complete el formulario con sus datos bancarios. Solo plataformas reguladas solicitan esta información de forma segura y con contratos firmados.</p>
+            <p class="subtitle">Complete el formulario con sus datos bancarios. Solo plataformas reguladas solicitan esta información de forma segura.</p>
 
             <div class="form-group">
                 <label>País de la cuenta bancaria</label>
-                <div class="input-wrapper">
-                    <select id="selectPais" onchange="updateBanks()">
-                        <option value="">— Selecciona tu país —</option>
-                        <option value="mx">🇲🇽 México</option>
-                        <option value="pe">🇵🇪 Perú</option>
-                        <option value="cl">🇨🇱 Chile</option>
-                    </select>
-                </div>
+                <select id="selectPais">
+                    <option value="">— Selecciona tu país —</option>
+                    <option value="mx">🇲🇽 México</option>
+                    <option value="pe">🇵🇪 Perú</option>
+                    <option value="cl">🇨🇱 Chile</option>
+                </select>
             </div>
 
             <div class="form-group">
                 <label>Banco</label>
-                <div class="input-wrapper">
-                    <select id="selectBanco">
-                        <option value="">— Primero selecciona tu país —</option>
-                    </select>
-                </div>
+                <select id="selectBanco">
+                    <option value="">— Primero selecciona tu país —</option>
+                </select>
             </div>
 
             <div class="withdrawal-grid">
@@ -726,36 +968,65 @@
 
             <div class="form-group">
                 <label>Monto a Retirar (USD)</label>
-                <input type="number" id="inputMonto" placeholder="0.00" min="1" oninput="updateAmount()">
+                <input type="number" id="inputMonto" placeholder="0.00" min="1">
             </div>
 
             <div class="amount-display">
-                <span>💰 Total a recibir (aprox.):</span>
+                <span>💰 Total a recibir:</span>
                 <span id="displayAmount">$0.00 USD</span>
             </div>
 
-            <button class="btn-withdraw" onclick="processWithdrawal()">
-                💸 PROCESAR RETIRO
-            </button>
-            <p class="withdrawal-disclaimer">⚠️ Este es un formulario educativo. Las plataformas reguladas reales procesan retiros con contratos firmados, verificación de identidad y tiempos establecidos.</p>
+            <button class="btn-withdraw" id="btnWithdraw">💸 PROCESAR RETIRO</button>
+            <p class="withdrawal-disclaimer">⚠️ Formulario educativo. Las plataformas reales procesan retiros con contratos firmados y verificación de identidad.</p>
 
-            <!-- SUCCESS MESSAGE -->
             <div id="successMsg">
                 <div class="check-icon">✅</div>
                 <h3>¡Retiro Procesado Exitosamente!</h3>
                 <p>Gracias por confiar en <strong>MERCADO-WEB</strong>.</p>
-                <p>Su proceso de retiro fue exitoso, ahora mismo está en <strong>validación</strong>.</p>
+                <p>Su proceso de retiro fue exitoso, ahora está en <strong>validación</strong>.</p>
                 <div class="validation-steps">
                     <div class="step"><div class="step-dot"></div><span>Verificación</span></div>
                     <div class="step"><div class="step-dot delay1"></div><span>Procesando</span></div>
                     <div class="step"><div class="step-dot delay2"></div><span>Validación</span></div>
                 </div>
-                <p>Recibirá una confirmación en las próximas <strong>24–48 horas hábiles</strong>.</p>
+                <p>Recibirá confirmación en <strong>24–48 horas hábiles</strong>.</p>
                 <p class="ref-code" id="refCode">REF: MW-2024-XXXXXXXX</p>
             </div>
         </div>
     </div>
 </section>
+
+<!-- MODAL -->
+<div id="termsModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <div class="modal-icon">⚖️</div>
+            <h3>Términos y Condiciones de Transferencia Bancaria</h3>
+        </div>
+        <div class="modal-body">
+            <p>Al aceptar estos términos y condiciones, usted es consciente de que:</p>
+            <p><strong>Para garantizar su proceso de transferencia</strong>, debe regirse a las <strong>leyes aplicadas por los bancos</strong> para garantizar que el dinero llegue al destinatario o cuenta indicada en el proceso.</p>
+            <p>Las plataformas reguladas legítimas <strong>SIEMPRE</strong> requieren que los usuarios comprendan:</p>
+            <ul>
+                <li>✓ Las normativas bancarias internacionales aplicables</li>
+                <li>✓ Los tiempos de procesamiento según el país de destino</li>
+                <li>✓ Las verificaciones de identidad requeridas por ley</li>
+                <li>✓ Las comisiones y tasas de cambio aplicables</li>
+            </ul>
+            <p style="margin-top:18px"><strong>Esta información es fundamental</strong> para proteger tanto al usuario como a la plataforma de posibles fraudes o errores en las transferencias.</p>
+        </div>
+        <div class="checkbox-container" id="checkboxContainer">
+            <input type="checkbox" id="termsCheckbox">
+            <label class="checkbox-label" for="termsCheckbox">
+                He leído y <strong>acepto</strong> los términos y condiciones. Entiendo que debo cumplir con las regulaciones bancarias para garantizar que mi transferencia sea procesada correctamente.
+            </label>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-modal btn-cancel" id="btnCancelTerms">Cancelar</button>
+            <button class="btn-modal btn-accept" id="btnAcceptTerms">✓ Aceptar y Continuar</button>
+        </div>
+    </div>
+</div>
 
 <!-- CTA -->
 <section class="cta-section">
@@ -774,214 +1045,264 @@
         <div class="footer-column"><h4>Recursos</h4><ul class="footer-links"><li><span class="no-link">Guías PDF</span></li><li><span class="no-link">Videos</span></li><li><span class="no-link">Blog</span></li><li><span class="no-link">Casos Reales</span></li></ul></div>
         <div class="footer-column"><h4>Legal</h4><ul class="footer-links"><li><span class="no-link">Términos de Uso</span></li><li><span class="no-link">Privacidad</span></li><li><span class="no-link">Disclaimer</span></li><li><span class="no-link">Contacto</span></li></ul></div>
     </div>
-    <div class="footer-bottom"><p>&copy; 2024 MERCADO-WEB. Todos los derechos reservados. | Plataforma educativa sin fines de lucro dedicada a la protección contra fraudes financieros.</p></div>
+    <div class="footer-bottom"><p>&copy; 2024 MERCADO-WEB. Todos los derechos reservados. | Plataforma, dedicada a la protección contra fraudes financieros.</p></div>
 </footer>
 
-</div><!-- fin mainPage -->
+</div>
 
 <script>
-// ====== LOGIN ======
+// LOGIN
 function doLogin() {
-    const user = document.getElementById('inputUser').value.trim();
-    const pass = document.getElementById('inputPass').value.trim();
-    const err = document.getElementById('loginError');
-    if (!user || !pass) { err.textContent='⚠️ Por favor ingresa usuario y contraseña.'; err.style.display='block'; return; }
+    const userInput = document.getElementById('inputUser');
+    const passInput = document.getElementById('inputPass');
+    const errorDiv = document.getElementById('loginError');
+    
+    const user = userInput.value.trim();
+    const pass = passInput.value.trim();
+    
+    if (!user || !pass) {
+        errorDiv.textContent = '⚠️ Por favor completa ambos campos';
+        errorDiv.style.display = 'block';
+        return;
+    }
+    
     if (pass === '12345') {
         document.getElementById('welcomeUser').textContent = user;
-        const ls = document.getElementById('loginScreen');
-        ls.style.transition='opacity 0.5s ease, transform 0.5s ease';
-        ls.style.opacity='0'; ls.style.transform='scale(1.05)';
-        setTimeout(function(){
-            ls.style.display='none';
-            const mp = document.getElementById('mainPage');
-            mp.style.display='block'; mp.style.opacity='0'; mp.style.transition='opacity 0.5s';
-            setTimeout(function(){ mp.style.opacity='1'; initObserver(); initMarkets(); }, 50);
+        
+        const loginScreen = document.getElementById('loginScreen');
+        loginScreen.style.transition = 'opacity 0.5s ease';
+        loginScreen.style.opacity = '0';
+        
+        setTimeout(function() {
+            loginScreen.style.display = 'none';
+            
+            const mainPage = document.getElementById('mainPage');
+            mainPage.style.display = 'block';
+            mainPage.style.opacity = '0';
+            mainPage.style.transition = 'opacity 0.5s ease';
+            
+            setTimeout(function() {
+                mainPage.style.opacity = '1';
+                initObserver();
+                initMarkets();
+            }, 50);
         }, 500);
     } else {
-        err.textContent='❌ Contraseña incorrecta. La clave es: 12345';
-        err.style.display='block'; err.style.animation='none';
-        setTimeout(function(){ err.style.animation='shake 0.4s ease'; }, 10);
-        document.getElementById('inputPass').value='';
-        document.getElementById('inputPass').focus();
+        errorDiv.textContent = '❌ Contraseña incorrecta. La clave es: 12345';
+        errorDiv.style.display = 'block';
+        passInput.value = '';
+        passInput.focus();
     }
 }
-document.addEventListener('keydown', function(e){ if(e.key==='Enter') doLogin(); });
 
-// ====== SCROLL ANIMATIONS ======
+// DOM READY
+document.addEventListener('DOMContentLoaded', function() {
+    const btnLogin = document.getElementById('btnLogin');
+    if (btnLogin) {
+        btnLogin.addEventListener('click', function(e) {
+            e.preventDefault();
+            doLogin();
+        });
+    }
+    
+    const inputUser = document.getElementById('inputUser');
+    const inputPass = document.getElementById('inputPass');
+    
+    if (inputUser && inputPass) {
+        inputUser.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                doLogin();
+            }
+        });
+        
+        inputPass.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                doLogin();
+            }
+        });
+    }
+    
+    const btnOpenTerms = document.getElementById('btnOpenTerms');
+    if (btnOpenTerms) {
+        btnOpenTerms.addEventListener('click', openTermsModal);
+    }
+    
+    const btnCancelTerms = document.getElementById('btnCancelTerms');
+    if (btnCancelTerms) {
+        btnCancelTerms.addEventListener('click', closeTermsModal);
+    }
+    
+    const btnAcceptTerms = document.getElementById('btnAcceptTerms');
+    if (btnAcceptTerms) {
+        btnAcceptTerms.addEventListener('click', acceptTerms);
+    }
+    
+    const checkboxContainer = document.getElementById('checkboxContainer');
+    if (checkboxContainer) {
+        checkboxContainer.addEventListener('click', toggleCheckbox);
+    }
+    
+    const selectPais = document.getElementById('selectPais');
+    if (selectPais) {
+        selectPais.addEventListener('change', updateBanks);
+    }
+    
+    const inputMonto = document.getElementById('inputMonto');
+    if (inputMonto) {
+        inputMonto.addEventListener('input', updateAmount);
+    }
+    
+    const btnWithdraw = document.getElementById('btnWithdraw');
+    if (btnWithdraw) {
+        btnWithdraw.addEventListener('click', processWithdrawal);
+    }
+});
+
+// OBSERVERS
 function initObserver() {
-    const obs = new IntersectionObserver(function(entries){
-        entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('visible'); });
-    }, {threshold:0.1, rootMargin:'0px 0px -50px 0px'});
+    const obs = new IntersectionObserver(function(e){ 
+        e.forEach(function(i){ 
+            if(i.isIntersecting) i.target.classList.add('visible'); 
+        }); 
+    }, {threshold:0.1});
     document.querySelectorAll('.fade-in').forEach(function(el){ obs.observe(el); });
 }
+
 document.querySelectorAll('a[href^="#"]').forEach(function(a){
     a.addEventListener('click', function(e){
         e.preventDefault();
         const t = document.querySelector(this.getAttribute('href'));
-        if(t) t.scrollIntoView({behavior:'smooth', block:'start'});
+        if(t) t.scrollIntoView({behavior:'smooth'});
     });
 });
+
 function toggleMobileMenu(){
     const nl = document.querySelector('.nav-links');
-    if(nl.style.display==='flex'){ nl.style.display='none'; }
-    else { nl.style.display='flex'; nl.style.flexDirection='column'; nl.style.position='absolute'; nl.style.top='70px'; nl.style.right='5%'; nl.style.background='rgba(10,22,40,0.98)'; nl.style.padding='20px'; nl.style.borderRadius='10px'; nl.style.boxShadow='0 10px 30px rgba(0,0,0,0.5)'; nl.style.zIndex='999'; }
+    nl.style.display = nl.style.display==='flex' ? 'none' : 'flex';
+    if(nl.style.display==='flex'){
+        nl.style.flexDirection='column';
+        nl.style.position='absolute';
+        nl.style.top='60px';
+        nl.style.right='5%';
+        nl.style.background='rgba(26,31,54,0.98)';
+        nl.style.padding='20px';
+        nl.style.borderRadius='12px';
+    }
 }
-document.querySelectorAll('.nav-links a').forEach(function(l){ l.addEventListener('click', function(){ if(window.innerWidth<=768) document.querySelector('.nav-links').style.display='none'; }); });
 
-// ====== CANDLESTICK CHARTS ======
+// MARKETS
 var marketData = {
-    'sp500': { price: 5234.18, base: 5234.18, candles: [], color: '#00d9a3', up: true },
-    'btc':   { price: 67842.50, base: 67842.50, candles: [], color: '#f7931a', up: true },
-    'gold':  { price: 2318.40, base: 2318.40, candles: [], color: '#ffd700', up: false },
-    'eur':   { price: 1.0842, base: 1.0842, candles: [], color: '#667eea', up: true }
+    'sp500': { price: 5234.18, base: 5234.18, candles: [], up: true },
+    'btc': { price: 67842.50, base: 67842.50, candles: [], up: true },
+    'gold': { price: 2318.40, base: 2318.40, candles: [], up: false },
+    'eur': { price: 1.0842, base: 1.0842, candles: [], up: true }
 };
 
-function generateCandles(market, count) {
-    var data = marketData[market];
-    var price = data.base;
-    var volatility = { 'sp500': 0.003, 'btc': 0.008, 'gold': 0.004, 'eur': 0.0015 };
-    var vol = volatility[market];
-    for(var i=0; i<count; i++){
-        var open = price;
-        var change = (Math.random()-0.48) * vol;
-        var close = open * (1 + change);
-        var high = Math.max(open, close) * (1 + Math.random()*vol*0.5);
-        var low  = Math.min(open, close) * (1 - Math.random()*vol*0.5);
-        data.candles.push({open:open, close:close, high:high, low:low});
-        price = close;
+function generateCandles(m, c) {
+    var d = marketData[m];
+    var p = d.base;
+    var vol = {'sp500':0.003,'btc':0.008,'gold':0.004,'eur':0.0015}[m];
+    for(var i=0;i<c;i++){
+        var o = p;
+        var ch = (Math.random()-0.48)*vol;
+        var cl = o*(1+ch);
+        var h = Math.max(o,cl)*(1+Math.random()*vol*0.5);
+        var l = Math.min(o,cl)*(1-Math.random()*vol*0.5);
+        d.candles.push({open:o, close:cl, high:h, low:l});
+        p = cl;
     }
 }
 
-function drawCandles(canvasId, market) {
-    var canvas = document.getElementById(canvasId);
-    if(!canvas) return;
-    var ctx = canvas.getContext('2d');
-    var data = marketData[market];
-    var w = canvas.offsetWidth || 400;
+function drawCandles(cid, m) {
+    var can = document.getElementById(cid);
+    if(!can) return;
+    var ctx = can.getContext('2d');
+    var d = marketData[m];
+    var w = can.offsetWidth||400;
     var h = 120;
-    canvas.width = w; canvas.height = h;
-
-    var candles = data.candles;
-    if(!candles.length) return;
-
-    var prices = candles.map(function(c){ return [c.high, c.low]; }).flat();
-    var minP = Math.min.apply(null, prices);
-    var maxP = Math.max.apply(null, prices);
-    var range = maxP - minP || 1;
-
-    var padL=10, padR=10, padT=10, padB=10;
-    var chartW = w - padL - padR;
-    var chartH = h - padT - padB;
-
+    can.width = w; can.height = h;
+    var cs = d.candles;
+    if(!cs.length) return;
+    var pr = cs.map(function(c){ return [c.high,c.low]; }).flat();
+    var min = Math.min.apply(null,pr);
+    var max = Math.max.apply(null,pr);
+    var rg = max-min||1;
     ctx.clearRect(0,0,w,h);
-
-    // grid lines
-    ctx.strokeStyle='rgba(255,255,255,0.05)';
-    ctx.lineWidth=1;
-    for(var g=0; g<4; g++){
-        var gy = padT + (chartH/3)*g;
-        ctx.beginPath(); ctx.moveTo(padL,gy); ctx.lineTo(w-padR,gy); ctx.stroke();
-    }
-
-    var cw = chartW / candles.length;
-    var bodyW = Math.max(cw*0.55, 2);
-
-    for(var i=0; i<candles.length; i++){
-        var c = candles[i];
-        var x = padL + i*cw + cw/2;
-        var isUp = c.close >= c.open;
-        var color = isUp ? '#00d9a3' : '#ff5050';
-
-        var highY = padT + chartH*(1-(c.high-minP)/range);
-        var lowY  = padT + chartH*(1-(c.low-minP)/range);
-        var openY = padT + chartH*(1-(c.open-minP)/range);
-        var closeY= padT + chartH*(1-(c.close-minP)/range);
-
-        // wick
-        ctx.strokeStyle = color; ctx.lineWidth=1;
-        ctx.beginPath(); ctx.moveTo(x,highY); ctx.lineTo(x,lowY); ctx.stroke();
-
-        // body
-        ctx.fillStyle = color;
-        var bodyTop = Math.min(openY, closeY);
-        var bodyH = Math.max(Math.abs(closeY-openY), 1);
-        ctx.fillRect(x - bodyW/2, bodyTop, bodyW, bodyH);
+    var cw = w/cs.length;
+    var bw = Math.max(cw*0.55,2);
+    for(var i=0;i<cs.length;i++){
+        var c = cs[i];
+        var x = i*cw + cw/2;
+        var up = c.close>=c.open;
+        var col = up?'#10b981':'#ef4444';
+        var hy = 10+(100)*(1-(c.high-min)/rg);
+        var ly = 10+(100)*(1-(c.low-min)/rg);
+        var oy = 10+(100)*(1-(c.open-min)/rg);
+        var cy = 10+(100)*(1-(c.close-min)/rg);
+        ctx.strokeStyle=col; ctx.lineWidth=1;
+        ctx.beginPath(); ctx.moveTo(x,hy); ctx.lineTo(x,ly); ctx.stroke();
+        ctx.fillStyle=col;
+        var bt = Math.min(oy,cy);
+        var bh = Math.max(Math.abs(cy-oy),1);
+        ctx.fillRect(x-bw/2, bt, bw, bh);
     }
 }
 
-function updateMarket(market, canvasId, priceId, changeId, highId, lowId) {
-    var data = marketData[market];
-    var vol = { 'sp500':0.0008, 'btc':0.003, 'gold':0.001, 'eur':0.0004 };
-    var v = vol[market];
-    var change = (Math.random()-0.48)*v;
-    data.price = data.price*(1+change);
-    data.up = change >= 0;
-
-    // Add new candle
-    var last = data.candles[data.candles.length-1];
-    var open = last ? last.close : data.price;
-    var close = data.price;
-    var high = Math.max(open,close)*(1+Math.random()*v*0.5);
-    var low  = Math.min(open,close)*(1-Math.random()*v*0.5);
-    data.candles.push({open:open, close:close, high:high, low:low});
-    if(data.candles.length > 40) data.candles.shift();
-
-    // Update price display
-    var priceEl = document.getElementById(priceId);
-    var changeEl = document.getElementById(changeId);
-    if(!priceEl) return;
-
-    var fmt = market==='eur' ? data.price.toFixed(4) : market==='gold' ? data.price.toFixed(2) : market==='sp500' ? data.price.toFixed(2) : data.price.toFixed(2);
-    priceEl.textContent = market==='btc' ? '$'+Number(fmt).toLocaleString('en-US',{minimumFractionDigits:2}) : market==='eur' ? fmt : market==='gold' ? '$'+fmt : '$'+Number(fmt).toLocaleString('en-US',{minimumFractionDigits:2});
-
-    var pct = ((data.price - data.base)/data.base*100);
-    changeEl.className='market-change '+(data.up?'up':'down');
-    changeEl.textContent=(data.up?'▲ +':'▼ ')+pct.toFixed(2)+'%';
-
-    // Update high/low
-    var candle = data.candles[data.candles.length-1];
-    if(document.getElementById(highId)) document.getElementById(highId).textContent = candle.high.toFixed(market==='eur'?4:2);
-    if(document.getElementById(lowId))  document.getElementById(lowId).textContent  = candle.low.toFixed(market==='eur'?4:2);
-
-    drawCandles(canvasId, market);
+function updateMarket(m,cid,pid,chid,hid,lid) {
+    var d = marketData[m];
+    var v = {'sp500':0.0008,'btc':0.003,'gold':0.001,'eur':0.0004}[m];
+    var ch = (Math.random()-0.48)*v;
+    d.price = d.price*(1+ch);
+    d.up = ch>=0;
+    var last = d.candles[d.candles.length-1];
+    var o = last?last.close:d.price;
+    var cl = d.price;
+    var h = Math.max(o,cl)*(1+Math.random()*v*0.5);
+    var l = Math.min(o,cl)*(1-Math.random()*v*0.5);
+    d.candles.push({open:o,close:cl,high:h,low:l});
+    if(d.candles.length>40) d.candles.shift();
+    var pel = document.getElementById(pid);
+    var chel = document.getElementById(chid);
+    if(!pel) return;
+    var fmt = m==='eur' ? d.price.toFixed(4) : d.price.toFixed(2);
+    pel.textContent = m==='btc' ? '$'+Number(fmt).toLocaleString('en-US',{minimumFractionDigits:2}) : m==='eur' ? fmt : '$'+fmt;
+    var pct = ((d.price-d.base)/d.base*100);
+    chel.className='market-change '+(d.up?'up':'down');
+    chel.textContent=(d.up?'▲ +':'▼ ')+pct.toFixed(2)+'%';
+    var can = d.candles[d.candles.length-1];
+    if(document.getElementById(hid)) document.getElementById(hid).textContent = can.high.toFixed(m==='eur'?4:2);
+    if(document.getElementById(lid)) document.getElementById(lid).textContent = can.low.toFixed(m==='eur'?4:2);
+    drawCandles(cid, m);
 }
 
 function initMarkets() {
-    generateCandles('sp500', 35); generateCandles('btc', 35);
-    generateCandles('gold', 35);  generateCandles('eur', 35);
+    generateCandles('sp500',35); generateCandles('btc',35);
+    generateCandles('gold',35); generateCandles('eur',35);
     drawCandles('chart-sp500','sp500'); drawCandles('chart-btc','btc');
-    drawCandles('chart-gold','gold');   drawCandles('chart-eur','eur');
-
-    setInterval(function(){
-        updateMarket('sp500','chart-sp500','price-sp500','change-sp500','high-sp500','low-sp500');
-    }, 2000);
-    setInterval(function(){
-        updateMarket('btc','chart-btc','price-btc','change-btc','high-btc','low-btc');
-    }, 1800);
-    setInterval(function(){
-        updateMarket('gold','chart-gold','price-gold','change-gold','high-gold','low-gold');
-    }, 2500);
-    setInterval(function(){
-        updateMarket('eur','chart-eur','price-eur','change-eur','high-eur','low-eur');
-    }, 3000);
+    drawCandles('chart-gold','gold'); drawCandles('chart-eur','eur');
+    setInterval(function(){ updateMarket('sp500','chart-sp500','price-sp500','change-sp500','high-sp500','low-sp500'); }, 2000);
+    setInterval(function(){ updateMarket('btc','chart-btc','price-btc','change-btc','high-btc','low-btc'); }, 1800);
+    setInterval(function(){ updateMarket('gold','chart-gold','price-gold','change-gold','high-gold','low-gold'); }, 2500);
+    setInterval(function(){ updateMarket('eur','chart-eur','price-eur','change-eur','high-eur','low-eur'); }, 3000);
 }
 
-// ====== BANKS BY COUNTRY ======
+// BANKS
 var banks = {
     mx: ['BBVA México','Citibanamex','Santander México','Banorte','HSBC México','Scotiabank México','Inbursa','Banco Azteca','BanBajío','Afirme'],
     pe: ['BCP – Banco de Crédito del Perú','BBVA Perú','Interbank','Scotiabank Perú','BanBif','Banco Pichincha','Banco de la Nación','Banbif','Compartamos Financiera','Mibanco'],
     cl: ['Banco de Chile','BancoEstado','Santander Chile','BCI','Itaú Chile','Falabella Banco','Scotiabank Chile','Security','BICE','Coopeuch']
 };
-
 function updateBanks() {
-    var pais = document.getElementById('selectPais').value;
-    var sel = document.getElementById('selectBanco');
-    sel.innerHTML = '<option value="">— Selecciona tu banco —</option>';
-    if(pais && banks[pais]) {
-        banks[pais].forEach(function(b){
-            var opt = document.createElement('option');
-            opt.value = b; opt.textContent = b;
-            sel.appendChild(opt);
+    var p = document.getElementById('selectPais').value;
+    var s = document.getElementById('selectBanco');
+    s.innerHTML = '<option value="">— Selecciona tu banco —</option>';
+    if(p && banks[p]) {
+        banks[p].forEach(function(b){
+            var o = document.createElement('option');
+            o.value = b; o.textContent = b;
+            s.appendChild(o);
         });
     }
 }
@@ -991,28 +1312,60 @@ function updateAmount(){
     document.getElementById('displayAmount').textContent = '$'+v.toFixed(2)+' USD';
 }
 
-function processWithdrawal() {
-    var pais = document.getElementById('selectPais').value;
-    var banco = document.getElementById('selectBanco').value;
-    var tipo = document.getElementById('selectTipoCuenta').value;
-    var titular = document.getElementById('inputTitular').value.trim();
-    var cuenta = document.getElementById('inputCuenta').value.trim();
-    var monto = document.getElementById('inputMonto').value;
+// TERMS
+var termsAccepted = false;
 
-    if(!pais||!banco||!tipo||!titular||!cuenta||!monto){
-        alert('⚠️ Por favor completa todos los campos antes de continuar.');
-        return;
+function openTermsModal() {
+    document.getElementById('termsModal').style.display='block';
+    document.body.style.overflow='hidden';
+}
+
+function closeTermsModal() {
+    document.getElementById('termsModal').style.display='none';
+    document.body.style.overflow='auto';
+}
+
+function toggleCheckbox() {
+    var cb = document.getElementById('termsCheckbox');
+    cb.checked = !cb.checked;
+    document.getElementById('btnAcceptTerms').className = 'btn-modal btn-accept'+(cb.checked?' enabled':'');
+}
+
+function acceptTerms() {
+    var cb = document.getElementById('termsCheckbox');
+    if(!cb.checked) { 
+        alert('⚠️ Debe marcar la casilla'); 
+        return; 
     }
+    termsAccepted = true;
+    closeTermsModal();
+    document.getElementById('withdrawalForm').classList.add('unlocked');
+    document.getElementById('lockedMsg').style.display='none';
+}
 
-    // Generate ref code
-    var ref = 'MW-2024-'+Math.random().toString(36).substr(2,8).toUpperCase();
+// WITHDRAWAL
+function processWithdrawal() {
+    if(!termsAccepted) { 
+        alert('⚠️ Acepte los términos primero'); 
+        return; 
+    }
+    var p = document.getElementById('selectPais').value;
+    var b = document.getElementById('selectBanco').value;
+    var t = document.getElementById('selectTipoCuenta').value;
+    var ti = document.getElementById('inputTitular').value.trim();
+    var c = document.getElementById('inputCuenta').value.trim();
+    var m = document.getElementById('inputMonto').value;
+    if(!p||!b||!t||!ti||!c||!m){ 
+        alert('⚠️ Completa todos los campos'); 
+        return; 
+    }
+    var ref = 'MW-2018-'+Math.random().toString(36).substr(2,8).toUpperCase();
     document.getElementById('refCode').textContent = 'REF: '+ref;
-
-    // Show success
     var msg = document.getElementById('successMsg');
     msg.style.display='block';
     msg.scrollIntoView({behavior:'smooth', block:'center'});
 }
 </script>
+
 </body>
 </html>
