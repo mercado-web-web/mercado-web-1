@@ -88,7 +88,12 @@
         .login-hint { text-align: center; color: rgba(148, 163, 184, 0.6); font-size: 12px; margin-top: 20px; }
 
         /* MAIN PAGE */
-        #mainPage { display: none; }
+        #mainPage { 
+    display: block; 
+    opacity: 1; 
+    position: relative; /* importante para que los botones funcionen */
+    z-index: 1; /* coloca mainPage encima de la animación de fondo */
+}
         .animated-bg { position: fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none; background: radial-gradient(circle at 20% 50%, rgba(16, 185, 129, 0.03), transparent 50%), radial-gradient(circle at 80% 80%, rgba(52, 211, 153, 0.03), transparent 50%); }
 
         header {
@@ -536,32 +541,6 @@
 </head>
 <body>
 
-<!-- LOGIN -->
-<div id="loginScreen">
-    <div class="login-box">
-        <div class="login-logo"><span>MERCADO-WEB</span></div>
-        <p class="login-subtitle">Plataforma <strong></strong> contra Estafas Financieras</p>
-        <div class="login-form">
-            <div class="input-group">
-                <label>Usuario</label>
-                <div class="input-wrapper">
-                    <span>👤</span>
-                    <input type="text" id="inputUser" placeholder="Tu nombre de usuario" autocomplete="off">
-                </div>
-            </div>
-            <div class="input-group">
-                <label>Contraseña</label>
-                <div class="input-wrapper">
-                    <span>🔒</span>
-                    <input type="password" id="inputPass" placeholder="Tu contraseña" autocomplete="off">
-                </div>
-            </div>
-            <div class="login-error" id="loginError">❌ Error</div>
-            <button class="btn-login" id="btnLogin"> INGRESAR</button>
-        </div>
-        <p class="login-hint">Usuario: <strong>el indicado por su asesor</strong> | Contraseña: <strong>12****</strong></p>
-    </div>
-</div>
 
 <!-- MAIN -->
 <div id="mainPage">
@@ -580,13 +559,14 @@
             <li><a href="#retiro">Retiro</a></li>
         </ul>
         <div class="nav-right">
-            <div class="user-badge"><span id="welcomeUser">Usuario</span></div>
+            
             <div class="mobile-menu" onclick="toggleMobileMenu()">
                 <span></span><span></span><span></span>
             </div>
         </div>
     </nav>
 </header>
+
 
 <!-- HERO -->
 <section class="hero" id="inicio">
@@ -707,6 +687,7 @@
     </div>
 </section>
 
+
 <!-- GUIAS -->
 <section id="guias">
     <div class="section-header fade-in">
@@ -796,6 +777,8 @@
     </div>
 </section>
 
+
+
 <!-- MARKETS -->
 <section class="markets-section" id="mercados">
     <div class="section-header fade-in">
@@ -855,6 +838,7 @@
     </div>
 </section>
 
+
 <!-- FACEBOOK -->
 <section class="facebook-section" id="comunidad">
     <div class="facebook-inner">
@@ -879,6 +863,7 @@
         </div>
     </div>
 </section>
+
 
 <!-- VIDEOS -->
 <section id="recursos">
@@ -928,6 +913,7 @@
             <button class="btn-terms-compact" id="btnOpenTerms">LEER TÉRMINOS</button>
         </div>
 
+
         <!-- FORM -->
         <div class="withdrawal-card" id="withdrawalForm">
             <div class="locked-message" id="lockedMsg">
@@ -947,14 +933,14 @@
                 </select>
             </div>
 
-            <div class="form-group">
+<div class="form-group">
                 <label>Banco</label>
                 <select id="selectBanco">
                     <option value="">— Primero selecciona tu país —</option>
                 </select>
             </div>
 
-            <div class="withdrawal-grid">
+<div class="withdrawal-grid">
                 <div class="form-group">
                     <label>Tipo de Cuenta</label>
                     <select id="selectTipoCuenta">
@@ -971,7 +957,8 @@
                 </div>
             </div>
 
-            <div class="form-group">
+
+<div class="form-group">
                  <label>Número de Cuenta</label>
     <input type="text" id="inputCuenta" placeholder="Ej: 0123456789" maxlength="20">
 
@@ -1009,6 +996,8 @@
         </div>
     </div>
 </section>
+
+
 <!-- MODAL -->
 <div id="termsModal">
     <div class="modal-content">
@@ -1064,80 +1053,34 @@
 </div>
 
 <script>
-// LOGIN
-function doLogin() {
-    const userInput = document.getElementById('inputUser');
-    const passInput = document.getElementById('inputPass');
-    const errorDiv = document.getElementById('loginError');
-    
-    const user = userInput.value.trim();
-    const pass = passInput.value.trim();
-    
-    if (!user || !pass) {
-        errorDiv.textContent = '⚠️ Por favor completa ambos campos';
-        errorDiv.style.display = 'block';
-        return;
-    }
-    
-    if (pass === '12345') {
-        document.getElementById('welcomeUser').textContent = user;
-        
-        const loginScreen = document.getElementById('loginScreen');
-        loginScreen.style.transition = 'opacity 0.5s ease';
-        loginScreen.style.opacity = '0';
-        
-        setTimeout(function() {
-            loginScreen.style.display = 'none';
-            
-            const mainPage = document.getElementById('mainPage');
-            mainPage.style.display = 'block';
-            mainPage.style.opacity = '0';
-            mainPage.style.transition = 'opacity 0.5s ease';
-            
-            setTimeout(function() {
-                mainPage.style.opacity = '1';
-                initObserver();
-                initMarkets();
-            }, 50);
-        }, 500);
-    } else {
-        errorDiv.textContent = '❌ Contraseña incorrecta. La clave es: 12345';
-        errorDiv.style.display = 'block';
-        passInput.value = '';
-        passInput.focus();
-    }
-}
 
-// DOM READY
+
+// DOM READY limpio sin login
 document.addEventListener('DOMContentLoaded', function() {
-    const btnLogin = document.getElementById('btnLogin');
-    if (btnLogin) {
-        btnLogin.addEventListener('click', function(e) {
+    // Mostrar la página principal inmediatamente
+    const mainPage = document.getElementById('mainPage');
+    mainPage.style.display = 'block';
+    mainPage.style.opacity = '1';
+    mainPage.style.transition = 'opacity 0.5s ease';
+
+    // Inicializar animaciones fade-in
+    initObserver();
+
+    // Inicializar gráficos de mercados
+    initMarkets();
+
+ // Hacer que los enlaces internos funcionen (scroll suave)
+    document.querySelectorAll('a[href^="#"]').forEach(function(a){
+        a.addEventListener('click', function(e){
             e.preventDefault();
-            doLogin();
+            const t = document.querySelector(this.getAttribute('href'));
+            if(t) t.scrollIntoView({behavior:'smooth'});
         });
-    }
-    
-    const inputUser = document.getElementById('inputUser');
-    const inputPass = document.getElementById('inputPass');
-    
-    if (inputUser && inputPass) {
-        inputUser.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                doLogin();
-            }
-        });
-        
-        inputPass.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                doLogin();
-            }
-        });
-    }
-    
-    const btnOpenTerms = document.getElementById('btnOpenTerms');
+    });
+});
+
+
+const btnOpenTerms = document.getElementById('btnOpenTerms');
     if (btnOpenTerms) {
         btnOpenTerms.addEventListener('click', openTermsModal);
     }
@@ -1186,7 +1129,7 @@ if (inputCuenta) {
     if (btnWithdraw) {
         btnWithdraw.addEventListener('click', processWithdrawal);
     }
-});
+
 
 // OBSERVERS
 function initObserver() {
@@ -1205,6 +1148,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
         if(t) t.scrollIntoView({behavior:'smooth'});
     });
 });
+
 
 function toggleMobileMenu(){
     const nl = document.querySelector('.nav-links');
@@ -1433,3 +1377,10 @@ function processWithdrawal() {
 
 </body>
 </html>
+
+
+
+
+
+
+
