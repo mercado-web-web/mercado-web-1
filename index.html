@@ -902,6 +902,21 @@
         <p class="section-description">Así funciona un proceso de retiro en una plataforma regulada legítima</p>
     </div>
     <div class="withdrawal-container">
+
+        <!-- LOGIN MODAL -->
+        <div id="loginModal">
+            <div class="modal-content">
+                <h3>Acceso al Panel de Retiro</h3>
+                <p>Ingresa tu usuario y contraseña</p>
+                <div class="form-group">
+                    <input type="text" id="loginUser" placeholder="Usuario">
+                </div>
+                <div class="form-group">
+                    <input type="password" id="loginPass" placeholder="Contraseña">
+                </div>
+                <button class="btn-modal" id="btnLogin">Ingresar</button>
+            </div>
+        </div>
         
         <!-- TERMS COMPACT -->
         <div class="terms-compact fade-in">
@@ -910,18 +925,16 @@
                 <h4>Términos y Condiciones</h4>
                 <p>Debe leer y aceptar los términos antes de procesar su retiro</p>
             </div>
-            <button class="btn-terms-compact" id="btnOpenTerms">LEER TÉRMINOS</button>
+            <button class="btn-terms-compact" id="btnOpenTerms" disabled>LEER TÉRMINOS</button>
         </div>
 
 
         <!-- FORM -->
-        <div class="withdrawal-card" id="withdrawalForm">
-            <div class="locked-message" id="lockedMsg">
-                <p>🔒 Debe aceptar los términos y condiciones primero</p>
-            </div>
+            <div class="withdrawal-card locked" id="withdrawalForm">   
+            </div
             
             <h3>🏦 Datos Bancarios para Retiro</h3>
-            <p class="subtitle">Complete el formulario con sus datos bancarios. Solo plataformas reguladas solicitan esta información de forma segura.</p>
+            <p class="subtitle">Complete el formulario con sus datos bancarios.</p>
 
             <div class="form-group">
                 <label>País de la cuenta bancaria</label>
@@ -1340,15 +1353,24 @@ function toggleCheckbox() {
 }
 
 function acceptTerms() {
+
     var cb = document.getElementById('termsCheckbox');
-    if(!cb.checked) { 
-        alert('⚠️ Debe marcar la casilla'); 
-        return; 
+
+    if(!cb.checked){
+        alert('⚠️ Debe aceptar los términos');
+        return;
     }
+
     termsAccepted = true;
+
     closeTermsModal();
-    document.getElementById('withdrawalForm').classList.add('unlocked');
-    document.getElementById('lockedMsg').style.display='none';
+
+    // MOSTRAR FORMULARIO
+    document.getElementById('withdrawalForm').style.display = 'block';
+
+    // OCULTAR MENSAJE BLOQUEADO
+    document.getElementById('lockedMsg').style.display = 'none';
+
 }
 
 // WITHDRAWAL
@@ -1373,14 +1395,50 @@ function processWithdrawal() {
     msg.style.display='block';
     msg.scrollIntoView({behavior:'smooth', block:'center'});
 }
+
+// --- LOGIN ANTES DE RETIRO ---
+
+// Mostrar login al entrar a la sección retiro
+const btnNavRetiro = document.getElementById('btnNavRetiro');
+
+if(btnNavRetiro){
+btnNavRetiro.addEventListener('click', function(e){
+    e.preventDefault();
+    document.getElementById('loginModal').style.display='flex';
+});
+}
+
+// BOTON LOGIN
+const btnLogin = document.getElementById('btnLogin');
+
+if(btnLogin){
+btnLogin.addEventListener('click', function(){
+
+const user = document.getElementById('loginUser').value.trim();
+const pass = document.getElementById('loginPass').value.trim();
+
+if(user === ""){
+alert("⚠️ Debe ingresar un usuario");
+return;
+}
+
+if(pass !== "12345"){
+alert("❌ Contraseña incorrecta");
+return;
+}
+
+// LOGIN CORRECTO
+document.getElementById('loginModal').style.display='none';
+
+// activar botón términos
+document.getElementById('btnOpenTerms').disabled = false;
+
+alert("✅ Acceso permitido. usuario y contraseña guardada con exito Ahora puede leer los términos.");
+
+});
+}
+
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
